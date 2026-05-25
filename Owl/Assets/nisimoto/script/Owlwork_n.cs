@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using System.Collections;
 
 public class Owlwork_n : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float gridSize = 1f;
 
-    private bool isMoving = false;
+    private bool isMoving;
     private Vector3 targetPosition;
 
     void Start()
@@ -15,51 +17,53 @@ public class Owlwork_n : MonoBehaviour
 
     void Update()
     {
-        // ˆÚ“®’†‚Í“ü—Í‚ðŽó‚¯•t‚¯‚È‚¢
         if (isMoving) return;
 
         Vector3 direction = Vector3.zero;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
+        if (Keyboard.current.wKey.wasPressedThisFrame)
             direction = Vector3.up;
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
+
+        else if (Keyboard.current.sKey.wasPressedThisFrame)
             direction = Vector3.down;
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
+
+        else if (Keyboard.current.aKey.wasPressedThisFrame)
             direction = Vector3.left;
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
+
+        else if (Keyboard.current.dKey.wasPressedThisFrame)
             direction = Vector3.right;
-        }
 
         if (direction != Vector3.zero)
         {
-            targetPosition += direction * gridSize;
-            StartCoroutine(Move());
+            StartCoroutine(Move(direction));
         }
     }
 
-    System.Collections.IEnumerator Move()
+    IEnumerator Move(Vector3 direction)
     {
         isMoving = true;
 
-        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startPos + direction * gridSize;
+
+        float elapsedTime = 0f;
+        float moveTime = 1f / moveSpeed;
+
+        while (elapsedTime < moveTime)
         {
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                targetPosition,
-                moveSpeed * Time.deltaTime
+            transform.position = Vector3.Lerp(
+                startPos,
+                endPos,
+                elapsedTime / moveTime
             );
 
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = targetPosition;
+        transform.position = endPos;
+        targetPosition = endPos;
+
         isMoving = false;
     }
 }
