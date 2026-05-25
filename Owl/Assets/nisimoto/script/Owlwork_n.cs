@@ -5,7 +5,7 @@ public class Owlwork_n : MonoBehaviour
     public float moveDistance = 1f;
     public float moveSpeed = 5f;
 
-    private Vector3 targetPosition;
+    private Vector2 targetPosition;
     private bool isMoving;
 
     void Start()
@@ -15,50 +15,48 @@ public class Owlwork_n : MonoBehaviour
 
     void Update()
     {
-        // ˆÚ“®’†
-        if (isMoving)
-        {
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                targetPosition,
-                moveSpeed * Time.deltaTime
-            );
+        HandleInput();
+        Move();
+    }
 
-            // “ž’…‚µ‚½‚ç’âŽ~
-            if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
-            {
-                transform.position = targetPosition;
-                isMoving = false;
-            }
+    void HandleInput()
+    {
+        if (isMoving) return;
 
-            return;
-        }
+        Vector2 direction = Vector2.zero;
 
-        Vector3 direction = Vector3.zero;
+        if (Input.GetKey(KeyCode.W))
+            direction = Vector2.up;
+        else if (Input.GetKey(KeyCode.S))
+            direction = Vector2.down;
+        else if (Input.GetKey(KeyCode.A))
+            direction = Vector2.left;
+        else if (Input.GetKey(KeyCode.D))
+            direction = Vector2.right;
 
-        // WASD“ü—Í
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            direction = Vector3.up;
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            direction = Vector3.down;
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            direction = Vector3.left;
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            direction = Vector3.right;
-        }
-
-        // ˆÚ“®ŠJŽn
-        if (direction != Vector3.zero)
+        if (direction != Vector2.zero)
         {
             targetPosition += direction * moveDistance;
             isMoving = true;
         }
     }
-};
+
+    void Move()
+    {
+        if (!isMoving) return;
+
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPosition,
+            moveSpeed * Time.deltaTime
+        );
+
+        Vector2 currentPos = transform.position;
+
+        if (Vector2.Distance(currentPos, targetPosition) < 0.01f)
+        {
+            transform.position = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
+            isMoving = false;
+        }
+    }
+}
