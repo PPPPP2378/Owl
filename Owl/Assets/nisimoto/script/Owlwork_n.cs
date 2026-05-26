@@ -7,6 +7,9 @@ public class Owlwork_n : MonoBehaviour
     public float moveSpeed = 5f;
     public float gridSize = 1f;
 
+    // WallレイヤーをInspectorで設定
+    public LayerMask wallLayer;
+
     private bool isMoving;
     private Vector3 targetPosition;
 
@@ -35,7 +38,20 @@ public class Owlwork_n : MonoBehaviour
 
         if (direction != Vector3.zero)
         {
-            StartCoroutine(Move(direction));
+            Vector3 nextPos = transform.position + direction * gridSize;
+
+            // 壁チェック
+            Collider2D hit = Physics2D.OverlapCircle(
+                nextPos,
+                0.2f,
+                wallLayer
+            );
+
+            // 壁がなければ移動
+            if (hit == null)
+            {
+                StartCoroutine(Move(direction));
+            }
         }
     }
 
