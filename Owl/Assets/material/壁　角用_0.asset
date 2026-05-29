@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: "\u30BF\u30A4\u30EB\u5E8A\u3000\u3000\u57FA\u672C_0"
+  m_Name: "\u58C1\u3000\u89D2\u7528_0"
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 3969558183539413844, guid: f1580eec10f85f74e94ba2a7c3c6ff47, type: 3}
+  m_Sprite: {fileID: 9100783498848607328, guid: fff0526e5a1762149a105290d616fd81, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -33,4 +33,4 @@ MonoBehaviour:
     e33: 1
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
-  m_ColliderType: 0
+  m_ColliderType: 1
