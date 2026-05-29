@@ -1,6 +1,26 @@
 using UnityEngine;
+using TMPro;
 
-public class MessageManager_n
+public class MessageManager_n : MonoBehaviour
 {
-    
+    public static MessageManager_n instance;
+
+    public TextMeshProUGUI messageText;
+
+    void Awake()
+    {
+        instance = this;
+
+        messageText.text = "";
+    }
+
+    public void ShowMessage(string message)
+    {
+        messageText.text = message;
+    }
+
+    public void HideMessage()
+    {
+        messageText.text = "";
+    }
 }
