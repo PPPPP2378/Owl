@@ -20,13 +20,19 @@ public class Owlaction_n : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            if (hit.CompareTag("Mystery"))
+            if (hit.CompareTag("Mystery2"))
             {
                 foundMystery = true;
 
                 if (!mysteryDetected)
                 {
-                    audioSource.PlayOneShot(owlCry);
+                    Debug.Log("Mystery発見！");
+
+                    if (audioSource != null && owlCry != null)
+                    {
+                        audioSource.PlayOneShot(owlCry);
+                    }
+
                     mysteryDetected = true;
                 }
 
@@ -40,7 +46,6 @@ public class Owlaction_n : MonoBehaviour
         }
     }
 
-    // Sceneビューで範囲表示
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
