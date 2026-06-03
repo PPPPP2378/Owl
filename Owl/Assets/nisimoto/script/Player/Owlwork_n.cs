@@ -1,11 +1,22 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Owlwork_n : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float gridSize = 1f;
+
+    public GameObject interactText;//”調べる”のUI
+
+    private Collider2D currentMystery;//今見ているTag「Mystery2」オブジェクト
+
+    public WallSequenceDoor_n wallSequenceDoor;
+
+    public GameObject infoPanel;
+    public Image infoImage;
+    public Sprite mysteryImage;
 
     // 壁レイヤー
     public LayerMask wallLayer;
@@ -20,6 +31,7 @@ public class Owlwork_n : MonoBehaviour
 
     void Update()
     {
+
         if (isMoving) return;
 
         Vector3 direction = Vector3.zero;
@@ -49,10 +61,19 @@ public class Owlwork_n : MonoBehaviour
             facingDirection = direction;
         }
 
+        CheckFrontObject();
+
         // Eキーで調べる
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            CheckInteraction();
+            if (infoPanel.activeSelf)
+            {
+                infoPanel.SetActive(false);
+            }
+            else
+            {
+                CheckInteraction();
+            }
         }
 
         // 移動処理
@@ -107,26 +128,78 @@ public class Owlwork_n : MonoBehaviour
     // 前を調べる
     void CheckInteraction()
     {
+        if (currentMystery == null) return;
+
+        MysteryWall_n wall =
+            currentMystery.GetComponent<MysteryWall_n>();
+
+        if (wall != null)
+        {
+            wall.isChecked = true;
+
+            wallSequenceDoor.CheckWall(wall.wallNumber);
+
+            currentMystery = null;
+            interactText.SetActive(false);
+
+            CheckFrontObject();
+
+            return;
+        }
+
+        infoImage.sprite = mysteryImage;
+        infoPanel.SetActive(true);
+    }
+
+    void CheckFrontObject()
+    {
         Vector2 checkPos =
             (Vector2)transform.position +
             (Vector2)facingDirection * gridSize;
 
-        Collider2D hit =
-            Physics2D.OverlapCircle(
-                checkPos,
-                0.2f,
-                interactLayer
-            );
+        Collider2D[] hits =
+            Physics2D.OverlapCircleAll(checkPos, 0.7f);
 
-        if (hit != null)
+        currentMystery = null;
+
+        foreach (Collider2D hit in hits)
         {
-            InteractMessage_n message =
-                hit.GetComponent<InteractMessage_n>();
+            if (!hit.CompareTag("Mystery2")) continue;
 
-            if (message != null)
+            MysteryWall_n wall =
+                hit.GetComponent<MysteryWall_n>();
+
+            if (wall != null && wall.isChecked)
             {
-                message.Interact();
+                continue;
             }
+
+            currentMystery = hit;
+            break;
         }
+
+        interactText.SetActive(currentMystery != null);
+    }
+
+    void Start()
+    {
+        interactText.SetActive(false);
+        infoPanel.SetActive(false);
+    }
+
+   
+    //デバック用
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Vector2 checkPos =
+            (Vector2)transform.position +
+            (Vector2)facingDirection * gridSize;
+
+        Gizmos.DrawWireSphere(
+            checkPos,
+            0.7f
+        );
     }
 }
