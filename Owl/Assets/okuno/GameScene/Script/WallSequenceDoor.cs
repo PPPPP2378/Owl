@@ -9,8 +9,6 @@ public class WallSequenceDoor_n : MonoBehaviour
 
     public MysteryWall_n[] walls;
 
-    private int currentStep = 1;
-
     private int[] correctOrder = { 2, 3, 1 };
 
     private int currentIndex = 0;
