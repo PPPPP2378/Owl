@@ -186,20 +186,4 @@ public class Owlwork_n : MonoBehaviour
         interactText.SetActive(false);
         infoPanel.SetActive(false);
     }
-
-   
-    //デバック用
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-
-        Vector2 checkPos =
-            (Vector2)transform.position +
-            (Vector2)facingDirection * gridSize;
-
-        Gizmos.DrawWireSphere(
-            checkPos,
-            0.7f
-        );
-    }
 }
