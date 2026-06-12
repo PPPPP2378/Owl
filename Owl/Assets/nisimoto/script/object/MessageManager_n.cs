@@ -10,13 +10,18 @@ public class MessageManager_n : MonoBehaviour
     void Awake()
     {
         instance = this;
-
-        messageText.text = "";
+        if (messageText != null)
+        {
+            messageText.text = "";
+        }
     }
 
     public void ShowMessage(string message)
     {
-        messageText.text = message;
+        if (messageText != null)
+        {
+            messageText.text = message;
+        }
     }
 
     public void HideMessage()

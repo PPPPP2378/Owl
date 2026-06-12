@@ -14,6 +14,8 @@ public class TitleManager_n : MonoBehaviour
 
             if (selectID < 0)
                 selectID = 2;
+
+            Debug.Log("‘I‘ð’† : " + selectID);
         }
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -22,6 +24,8 @@ public class TitleManager_n : MonoBehaviour
 
             if (selectID > 2)
                 selectID = 0;
+
+            Debug.Log("‘I‘ð’† : " + selectID);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
