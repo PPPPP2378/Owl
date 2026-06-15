@@ -7,6 +7,8 @@ public class WallSequenceDoor_n : MonoBehaviour
     public Vector3Int doorTilePosition;
     public TileBase openDoorTile;
 
+    public GameObject doorTriggerObject;
+
     public MysteryWall_n[] walls;
 
     private int[] correctOrder = { 2, 3, 1 };
@@ -37,6 +39,13 @@ public class WallSequenceDoor_n : MonoBehaviour
     void OpenDoor()
     {
         doorTilemap.SetTile(doorTilePosition, openDoorTile);
+
+        if (doorTriggerObject != null)
+        {
+            doorTriggerObject.SetActive(true);
+        }
+
+        Debug.Log("”à‚ªŠJ‚¢‚½");
     }
 
     public void ResetWalls()
