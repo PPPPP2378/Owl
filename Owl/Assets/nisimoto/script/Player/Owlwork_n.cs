@@ -147,8 +147,13 @@ public class Owlwork_n : MonoBehaviour
             return;
         }
 
-        infoImage.sprite = mysteryImage;
-        infoPanel.SetActive(true);
+        Memo_n memo =currentMystery.GetComponent<Memo_n>();
+
+        if (memo != null)
+        {
+            infoImage.sprite = memo.memoImage;
+            infoPanel.SetActive(true);
+        }
     }
 
     void CheckFrontObject()
@@ -187,3 +192,5 @@ public class Owlwork_n : MonoBehaviour
         infoPanel.SetActive(false);
     }
 }
+
+

@@ -748,6 +748,7 @@ GameObject:
   - component: {fileID: 273127617}
   - component: {fileID: 273127616}
   - component: {fileID: 273127615}
+  - component: {fileID: 273127618}
   m_Layer: 3
   m_Name: "\u30E1\u30E2\u3000\u4EEE (1)_0 (2)"
   m_TagString: Mystery2
@@ -871,6 +872,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &273127618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273127614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb786111027903841b52631bdff9ded3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  memoImage: {fileID: 8769026535981482403, guid: ec864599520e7404dbed74e3a7312436, type: 3}
 --- !u!1001 &418085832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3074,6 +3088,7 @@ GameObject:
   - component: {fileID: 1677833047}
   - component: {fileID: 1677833046}
   - component: {fileID: 1677833048}
+  - component: {fileID: 1677833049}
   m_Layer: 3
   m_Name: "\u30E1\u30E2\u3000\u4EEE (1)_0"
   m_TagString: Mystery2
@@ -3197,6 +3212,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.0360823, y: 1.9451978}
   m_EdgeRadius: 0
+--- !u!114 &1677833049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677833045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb786111027903841b52631bdff9ded3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  memoImage: {fileID: -1869542050972067887, guid: e01fe74b54fa5ea4a9b756905d12522b, type: 3}
 --- !u!1 &1684003586
 GameObject:
   m_ObjectHideFlags: 0
@@ -3284,6 +3312,7 @@ GameObject:
   - component: {fileID: 1780734803}
   - component: {fileID: 1780734802}
   - component: {fileID: 1780734801}
+  - component: {fileID: 1780734804}
   m_Layer: 3
   m_Name: "\u30E1\u30E2\u3000\u4EEE (1)_0 (1)"
   m_TagString: Mystery2
@@ -3407,6 +3436,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1780734804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780734800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb786111027903841b52631bdff9ded3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  memoImage: {fileID: 6376043096645383829, guid: e5a15fa33f0dd764a84608e144fd2f6d, type: 3}
 --- !u!1 &1866003058
 GameObject:
   m_ObjectHideFlags: 0
