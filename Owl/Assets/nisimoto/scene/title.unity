@@ -18426,6 +18426,10 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[1121].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 1225710485697948050, guid: 478f5ffd0e990ed4eaa9106359bda210, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1465357194616303760, guid: 478f5ffd0e990ed4eaa9106359bda210, type: 3}
       propertyPath: m_Name
       value: zoon
