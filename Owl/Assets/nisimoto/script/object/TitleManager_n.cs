@@ -5,37 +5,64 @@ using TMPro;
 public class TitleManager_n : MonoBehaviour
 {
     public TextMeshProUGUI startText;
-    public TextMeshProUGUI menuText;
+    public TextMeshProUGUI howToText;
+    public TextMeshProUGUI optionText;
     public TextMeshProUGUI exitText;
 
+    public GameObject titlePanel;
+    public GameObject howToPanel;
+    public GameObject optionPanel;
+    public TextMeshProUGUI voiceOnText;
+    public TextMeshProUGUI voiceOffText;
+
+    private int optionID = 0;
     private int selectID = 0;
+
+    enum MenuState
+    {
+        Title,
+        HowTo,
+        Option
+    }
+
+    MenuState state = MenuState.Title;
+
+    void Start()
+    {
+        titlePanel.SetActive(true);
+        howToPanel.SetActive(false);
+        optionPanel.SetActive(false);
+
+        optionID =
+            AudioManager_n.Instance.owlVoice ? 0 : 1;
+
+        UpdateText();
+        UpdateOptionText();
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && state == MenuState.Title)
         {
             selectID--;
 
             if (selectID < 0)
-                selectID = 2;
+                selectID = 3;
 
             UpdateText();
-
-            Debug.Log("ëIëíÜ : " + selectID);
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && state == MenuState.Title)
         {
             selectID++;
 
-            if (selectID > 2)
+            if (selectID > 3)
                 selectID = 0;
 
             UpdateText();
-
-            Debug.Log("ëIëíÜ : " + selectID);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) &&
+            state == MenuState.Title)
         {
             switch (selectID)
             {
@@ -44,32 +71,66 @@ public class TitleManager_n : MonoBehaviour
                     break;
 
                 case 1:
-                    Debug.Log("MENU");
+                    state = MenuState.HowTo;
+
+                    titlePanel.SetActive(false);
+                    howToPanel.SetActive(true);
                     break;
 
                 case 2:
+                    state = MenuState.Option;
+
+                    titlePanel.SetActive(false);
+                    optionPanel.SetActive(true);
+                    break;
+
+                case 3:
 #if UNITY_EDITOR
                     UnityEditor.EditorApplication.isPlaying = false;
 #else
-    Application.Quit();
+            Application.Quit();
 #endif
                     break;
             }
         }
-    }
-    void Start()
-    {
-        Debug.Log("StartìÆÇ¢ÇΩ");
+        if (Input.GetKeyDown(KeyCode.Escape) &&
+    state != MenuState.Title)
+        {
+            state = MenuState.Title;
 
-        UpdateText();
-    }
+            titlePanel.SetActive(true);
+            howToPanel.SetActive(false);
+            optionPanel.SetActive(false);
+        }
 
+        if (state == MenuState.Option)
+        {
+            if (Input.GetKeyDown(KeyCode.W) ||
+                Input.GetKeyDown(KeyCode.S))
+            {
+                optionID = 1 - optionID;
+
+                UpdateOptionText();
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (optionID == 0)
+                {
+                    AudioManager_n.Instance.SetOwlVoice(true);
+                }
+                else
+                {
+                    AudioManager_n.Instance.SetOwlVoice(false);
+                }
+            }
+        }
+    }
     void UpdateText()
     {
-        Debug.Log("UpdateTexté¿çs");
-
         startText.text = "  START";
-        menuText.text = "  MENU";
+        howToText.text = "  HOW TO";
+        optionText.text = "  OPTION";
         exitText.text = "  EXIT";
 
         switch (selectID)
@@ -79,13 +140,27 @@ public class TitleManager_n : MonoBehaviour
                 break;
 
             case 1:
-                menuText.text = "> MENU";
+                howToText.text = "> HOW TO";
                 break;
 
             case 2:
-                exitText.text = "> EXIT";
+                optionText.text = "> OPTION";
+                break;
 
+            case 3:
+                exitText.text = "> EXIT";
                 break;
         }
+    }
+
+    void UpdateOptionText()
+    {
+        voiceOnText.text = "  ñ¬Ç´ê∫ ON";
+        voiceOffText.text = "  ñ¬Ç´ê∫ OFF";
+
+        if (optionID == 0)
+            voiceOnText.text = "> ñ¬Ç´ê∫ ON";
+        else
+            voiceOffText.text = "> ñ¬Ç´ê∫ OFF";
     }
 }
