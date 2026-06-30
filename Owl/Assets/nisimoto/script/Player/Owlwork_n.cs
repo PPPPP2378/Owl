@@ -170,6 +170,19 @@ public class Owlwork_n : MonoBehaviour
             return;
         }
 
+        // ƒAƒCƒeƒ€
+        Item_n item = currentMystery.GetComponent<Item_n>();
+
+        if (item != null)
+        {
+            item.GetItem();
+
+            currentMystery = null;
+            interactText.SetActive(false);
+
+            return;
+        }
+
         Memo_n memo =currentMystery.GetComponent<Memo_n>();
 
         if (memo != null)
