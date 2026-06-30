@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 
 public class Owlwork_n : MonoBehaviour
 {
@@ -23,6 +25,25 @@ public class Owlwork_n : MonoBehaviour
 
     // 調べるレイヤー
     public LayerMask interactLayer;
+
+    //====================
+    // 暗闇システム
+    //====================
+
+    // 暗闇モード
+    public bool darkVision = false;
+
+    // 前方何マス照らすか
+    public int visionLength = 5;
+
+    // 暗闇タイル
+    public Tilemap darknessTilemap;
+
+    // 黒いタイル
+    public TileBase darkTile;
+
+    // 前回照らした場所
+    private List<Vector3Int> lastVisionTiles = new List<Vector3Int>();
 
     private bool isMoving;
 
@@ -94,7 +115,9 @@ public class Owlwork_n : MonoBehaviour
             {
                 StartCoroutine(Move(direction));
             }
+            UpdateVision();
         }
+       
     }
 
     IEnumerator Move(Vector3 direction)
@@ -190,6 +213,50 @@ public class Owlwork_n : MonoBehaviour
     {
         interactText.SetActive(false);
         infoPanel.SetActive(false);
+
+        darkVision = true;
+
+        UpdateVision();
+    }
+
+    void UpdateVision()
+    {
+        // 暗闇部屋じゃないなら何もしない
+        if (!darkVision || darknessTilemap == null)
+            return;
+
+        // 前回照らした場所を元に戻す
+        foreach (Vector3Int pos in lastVisionTiles)
+        {
+            darknessTilemap.SetTile(pos, darkTile);
+        }
+
+        lastVisionTiles.Clear();
+
+        Vector3 currentPos = transform.position;
+
+        for (int i = 1; i <= visionLength; i++)
+        {
+            Vector3 worldPos = currentPos + facingDirection * i * gridSize;
+
+            // 壁ならそこで終了
+            Collider2D wall =
+                Physics2D.OverlapCircle(
+                    worldPos,
+                    0.2f,
+                    wallLayer);
+
+            if (wall != null)
+                break;
+
+            Vector3Int cell = darknessTilemap.WorldToCell(worldPos);
+
+            // 黒タイルを消す
+            darknessTilemap.SetTile(cell, null);
+
+            // 戻すため保存
+            lastVisionTiles.Add(cell);
+        }
     }
 }
 
