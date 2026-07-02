@@ -17,7 +17,7 @@ public class Item_n : MonoBehaviour
 
         if (showDescriptionOnPickup)
         {
-            ItemInfoUI_n.Instance.Show(itemName, description, itemIcon);
+           ItemInfoUI_n.Instance.Show(itemName, description);
         }
 
         Destroy(gameObject);
