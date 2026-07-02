@@ -20,7 +20,12 @@ public class InventoryManager_n : MonoBehaviour
         }
     }
 
-    public void AddItem(string itemName, string description, Sprite icon = null)
+    public void AddItem(
+     string itemName,
+     string description,
+     ItemType type,
+     Sprite icon = null,
+     WeaponType_n weapon = WeaponType_n.None)
     {
         foreach (ItemData_n item in itemList)
         {
@@ -28,7 +33,15 @@ public class InventoryManager_n : MonoBehaviour
                 return;
         }
 
-        itemList.Add(new ItemData_n(itemName, description, icon));
+        itemList.Add(
+            new ItemData_n(
+                itemName,
+                description,
+                type,
+                icon,
+                weapon
+            )
+        );
 
         Debug.Log(itemName + " ‚ð“üŽè");
     }
