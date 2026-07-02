@@ -467,11 +467,11 @@ MonoBehaviour:
   openDoorTile: {fileID: 11400000, guid: 9845415a02c01974ba70ea9429976d97, type: 2}
   doorTriggerObject: {fileID: 111918849}
   walls:
-  - {fileID: 1000971808}
-  - {fileID: 882098722}
-  - {fileID: 1024110713}
-  - {fileID: 665978234}
-  - {fileID: 1849612206}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &248428287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1801,12 +1801,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 852142044682961092, guid: faeb60f6a4843264eb05db3485f812ef, type: 3}
+      propertyPath: itemName
+      value: "\u76FE"
+      objectReference: {fileID: 0}
+    - target: {fileID: 852142044682961092, guid: faeb60f6a4843264eb05db3485f812ef, type: 3}
       propertyPath: itemType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 852142044682961092, guid: faeb60f6a4843264eb05db3485f812ef, type: 3}
       propertyPath: weaponType
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799063445199428878, guid: faeb60f6a4843264eb05db3485f812ef, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799063445199428878, guid: faeb60f6a4843264eb05db3485f812ef, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7799063445199428878, guid: faeb60f6a4843264eb05db3485f812ef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2031,7 +2043,6 @@ GameObject:
   - component: {fileID: 434310165}
   - component: {fileID: 434310164}
   - component: {fileID: 434310163}
-  - component: {fileID: 434310166}
   m_Layer: 5
   m_Name: InventoryPanel
   m_TagString: Untagged
@@ -2102,23 +2113,6 @@ RectTransform:
   m_AnchoredPosition: {x: -71, y: -51.5}
   m_SizeDelta: {x: -142, y: -103}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &434310166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 434310162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91707138b475d8049834685ab1fb295d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryPanel: {fileID: 0}
-  itemTexts: []
-  itemInfoPanel: {fileID: 586126641}
-  itemNameText: {fileID: 0}
-  itemDescriptionText: {fileID: 2049985370}
 --- !u!1001 &464408501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2132,12 +2126,24 @@ PrefabInstance:
       value: "\u69CD_0"
       objectReference: {fileID: 0}
     - target: {fileID: 3972495857135601349, guid: bf1eff53f345272409634c1c738a072b, type: 3}
+      propertyPath: itemName
+      value: "\u69CD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972495857135601349, guid: bf1eff53f345272409634c1c738a072b, type: 3}
       propertyPath: itemType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3972495857135601349, guid: bf1eff53f345272409634c1c738a072b, type: 3}
       propertyPath: weaponType
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074810570362623975, guid: bf1eff53f345272409634c1c738a072b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074810570362623975, guid: bf1eff53f345272409634c1c738a072b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9074810570362623975, guid: bf1eff53f345272409634c1c738a072b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2767,7 +2773,6 @@ GameObject:
   - component: {fileID: 665978232}
   - component: {fileID: 665978231}
   - component: {fileID: 665978233}
-  - component: {fileID: 665978234}
   - component: {fileID: 665978235}
   - component: {fileID: 665978236}
   m_Layer: 0
@@ -2867,22 +2872,8 @@ MonoBehaviour:
   shieldPrefab: {fileID: 8887129343264977946, guid: faeb60f6a4843264eb05db3485f812ef, type: 3}
   spearPrefab: {fileID: 3474508174534325614, guid: bf1eff53f345272409634c1c738a072b, type: 3}
   bowPrefab: {fileID: 5853944711654784602, guid: acac089c7db5ac0458a876ba0bee8d05, type: 3}
-  currentWeapon: 4
+  currentWeapon: 0
   puzzle: {fileID: 356796865}
---- !u!114 &665978234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665978230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef8229936effa043ac4a2f442a27e33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallNumber: 0
-  isChecked: 0
 --- !u!61 &665978235
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2965,6 +2956,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3860461132911120359, guid: acac089c7db5ac0458a876ba0bee8d05, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3860461132911120359, guid: acac089c7db5ac0458a876ba0bee8d05, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3860461132911120359, guid: acac089c7db5ac0458a876ba0bee8d05, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.18
       objectReference: {fileID: 0}
@@ -3009,6 +3008,10 @@ PrefabInstance:
       value: "\u5F13_0"
       objectReference: {fileID: 0}
     - target: {fileID: 6046365102514765518, guid: acac089c7db5ac0458a876ba0bee8d05, type: 3}
+      propertyPath: itemName
+      value: "\u5F13"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6046365102514765518, guid: acac089c7db5ac0458a876ba0bee8d05, type: 3}
       propertyPath: itemType
       value: 1
       objectReference: {fileID: 0}
@@ -3035,6 +3038,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6729730254219597377, guid: a1c958272d069754a963d29e00cfb9e5, type: 3}
       propertyPath: weaponType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7436784590743323489, guid: a1c958272d069754a963d29e00cfb9e5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7436784590743323489, guid: a1c958272d069754a963d29e00cfb9e5, type: 3}
+      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7436784590743323489, guid: a1c958272d069754a963d29e00cfb9e5, type: 3}
@@ -3278,7 +3289,6 @@ GameObject:
   - component: {fileID: 882098720}
   - component: {fileID: 882098719}
   - component: {fileID: 882098721}
-  - component: {fileID: 882098722}
   - component: {fileID: 882098723}
   - component: {fileID: 882098724}
   m_Layer: 0
@@ -3378,22 +3388,8 @@ MonoBehaviour:
   shieldPrefab: {fileID: 8887129343264977946, guid: faeb60f6a4843264eb05db3485f812ef, type: 3}
   spearPrefab: {fileID: 3474508174534325614, guid: bf1eff53f345272409634c1c738a072b, type: 3}
   bowPrefab: {fileID: 5853944711654784602, guid: acac089c7db5ac0458a876ba0bee8d05, type: 3}
-  currentWeapon: 2
+  currentWeapon: 0
   puzzle: {fileID: 356796865}
---- !u!114 &882098722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882098718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef8229936effa043ac4a2f442a27e33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallNumber: 0
-  isChecked: 0
 --- !u!61 &882098723
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3510,7 +3506,6 @@ GameObject:
   - component: {fileID: 1000971806}
   - component: {fileID: 1000971805}
   - component: {fileID: 1000971807}
-  - component: {fileID: 1000971808}
   - component: {fileID: 1000971809}
   - component: {fileID: 1000971810}
   m_Layer: 0
@@ -3610,22 +3605,8 @@ MonoBehaviour:
   shieldPrefab: {fileID: 8887129343264977946, guid: faeb60f6a4843264eb05db3485f812ef, type: 3}
   spearPrefab: {fileID: 3474508174534325614, guid: bf1eff53f345272409634c1c738a072b, type: 3}
   bowPrefab: {fileID: 5853944711654784602, guid: acac089c7db5ac0458a876ba0bee8d05, type: 3}
-  currentWeapon: 1
+  currentWeapon: 0
   puzzle: {fileID: 356796865}
---- !u!114 &1000971808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000971804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef8229936effa043ac4a2f442a27e33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallNumber: 0
-  isChecked: 0
 --- !u!61 &1000971809
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3712,12 +3693,24 @@ PrefabInstance:
       value: "\u65A7_0"
       objectReference: {fileID: 0}
     - target: {fileID: 6765542492589916071, guid: 21ac7e2e5ea00414f8f705859cdd5def, type: 3}
+      propertyPath: itemName
+      value: "\u65A7"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765542492589916071, guid: 21ac7e2e5ea00414f8f705859cdd5def, type: 3}
       propertyPath: itemType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6765542492589916071, guid: 21ac7e2e5ea00414f8f705859cdd5def, type: 3}
       propertyPath: weaponType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427402994464598309, guid: 21ac7e2e5ea00414f8f705859cdd5def, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427402994464598309, guid: 21ac7e2e5ea00414f8f705859cdd5def, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8427402994464598309, guid: 21ac7e2e5ea00414f8f705859cdd5def, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3807,7 +3800,6 @@ GameObject:
   - component: {fileID: 1024110711}
   - component: {fileID: 1024110710}
   - component: {fileID: 1024110712}
-  - component: {fileID: 1024110713}
   - component: {fileID: 1024110714}
   - component: {fileID: 1024110715}
   m_Layer: 0
@@ -3907,22 +3899,8 @@ MonoBehaviour:
   shieldPrefab: {fileID: 8887129343264977946, guid: faeb60f6a4843264eb05db3485f812ef, type: 3}
   spearPrefab: {fileID: 3474508174534325614, guid: bf1eff53f345272409634c1c738a072b, type: 3}
   bowPrefab: {fileID: 5853944711654784602, guid: acac089c7db5ac0458a876ba0bee8d05, type: 3}
-  currentWeapon: 3
+  currentWeapon: 0
   puzzle: {fileID: 356796865}
---- !u!114 &1024110713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1024110709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef8229936effa043ac4a2f442a27e33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallNumber: 0
-  isChecked: 0
 --- !u!61 &1024110714
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5151,9 +5129,9 @@ MonoBehaviour:
   - {fileID: 1539187893}
   - {fileID: 655244663}
   - {fileID: 1301352712}
-  itemInfoPanel: {fileID: 0}
-  itemNameText: {fileID: 0}
-  itemDescriptionText: {fileID: 0}
+  itemInfoPanel: {fileID: 586126641}
+  itemNameText: {fileID: 250479182}
+  itemDescriptionText: {fileID: 2049985370}
 --- !u!114 &1804406299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5193,7 +5171,6 @@ GameObject:
   - component: {fileID: 1849612204}
   - component: {fileID: 1849612203}
   - component: {fileID: 1849612205}
-  - component: {fileID: 1849612206}
   - component: {fileID: 1849612207}
   - component: {fileID: 1849612208}
   m_Layer: 0
@@ -5293,22 +5270,8 @@ MonoBehaviour:
   shieldPrefab: {fileID: 8887129343264977946, guid: faeb60f6a4843264eb05db3485f812ef, type: 3}
   spearPrefab: {fileID: 3474508174534325614, guid: bf1eff53f345272409634c1c738a072b, type: 3}
   bowPrefab: {fileID: 5853944711654784602, guid: acac089c7db5ac0458a876ba0bee8d05, type: 3}
-  currentWeapon: 5
+  currentWeapon: 0
   puzzle: {fileID: 356796865}
---- !u!114 &1849612206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1849612202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef8229936effa043ac4a2f442a27e33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallNumber: 0
-  isChecked: 0
 --- !u!61 &1849612207
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class Item_n : MonoBehaviour
 
     public void GetItem()
     {
+        Debug.Log("GetItem: " + itemName + " / " + weaponType);
         InventoryManager_n.Instance.AddItem(
            itemName,
            description,
