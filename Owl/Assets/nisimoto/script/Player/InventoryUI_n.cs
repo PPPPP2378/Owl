@@ -6,13 +6,18 @@ public class InventoryUI_n : MonoBehaviour
     public GameObject inventoryPanel;
     public TextMeshProUGUI[] itemTexts;
 
+    public GameObject itemInfoPanel;
+    public TextMeshProUGUI itemNameText;
+    public TextMeshProUGUI itemDescriptionText;
+
     private bool isOpen = false;
     private int selectID = 0;
 
     void Start()
     {
         inventoryPanel.SetActive(false);
-        InventoryManager_n.Instance.AddItem("ŒÃ‚¢Œ®");
+        InventoryManager_n.Instance.AddItem("ŒÃ‚¢Œ®",
+    "ŽK‚Ñ‚Â‚¢‚½ŒÃ‚¢Œ®B", null);
     }
 
     void Update()
@@ -31,8 +36,13 @@ public class InventoryUI_n : MonoBehaviour
         }
 
         if (!isOpen)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                ShowItemInfo();
+            }
             return;
-
+        }
         if (InventoryManager_n.Instance.itemList.Count == 0)
             return;
 
@@ -71,9 +81,20 @@ public class InventoryUI_n : MonoBehaviour
             itemTexts[i].gameObject.SetActive(true);
 
             if (i == selectID)
-                itemTexts[i].text = "> " + InventoryManager_n.Instance.itemList[i];
+                itemTexts[i].text = "> " + InventoryManager_n.Instance.itemList[i].itemName;
             else
-                itemTexts[i].text = "  " + InventoryManager_n.Instance.itemList[i];
+                itemTexts[i].text = "  " + InventoryManager_n.Instance.itemList[i].itemName;
         }
+    }
+
+    void ShowItemInfo()
+    {
+        ItemData_n item =
+            InventoryManager_n.Instance.itemList[selectID];
+
+        itemNameText.text = item.itemName;
+        itemDescriptionText.text = item.description;
+
+        itemInfoPanel.SetActive(true);
     }
 }

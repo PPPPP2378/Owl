@@ -5,7 +5,7 @@ public class InventoryManager_n : MonoBehaviour
 {
     public static InventoryManager_n Instance;
 
-    public List<string> itemList = new List<string>();
+    public List<ItemData_n> itemList = new List<ItemData_n>();
 
     private void Awake()
     {
@@ -20,22 +20,32 @@ public class InventoryManager_n : MonoBehaviour
         }
     }
 
-    public void AddItem(string itemName)
+    public void AddItem(string itemName, string description, Sprite icon = null)
     {
-        if (!itemList.Contains(itemName))
+        foreach (ItemData_n item in itemList)
         {
-            itemList.Add(itemName);
-            Debug.Log(itemName + " ‚ð“üŽè");
+            if (item.itemName == itemName)
+                return;
         }
+
+        itemList.Add(new ItemData_n(itemName, description, icon));
+
+        Debug.Log(itemName + " ‚ð“üŽè");
     }
 
     public bool HasItem(string itemName)
     {
-        return itemList.Contains(itemName);
+        foreach (ItemData_n item in itemList)
+        {
+            if (item.itemName == itemName)
+                return true;
+        }
+
+        return false;
     }
 
     public void RemoveItem(string itemName)
     {
-        itemList.Remove(itemName);
+        itemList.RemoveAll(x => x.itemName == itemName);
     }
 }
