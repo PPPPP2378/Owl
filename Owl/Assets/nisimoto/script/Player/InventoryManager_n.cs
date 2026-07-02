@@ -9,6 +9,8 @@ public class InventoryManager_n : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("InventoryManager Awake");
+
         if (Instance == null)
         {
             Instance = this;
@@ -21,12 +23,14 @@ public class InventoryManager_n : MonoBehaviour
     }
 
     public void AddItem(
-     string itemName,
-     string description,
-     ItemType type,
-     Sprite icon = null,
-     WeaponType_n weapon = WeaponType_n.None)
+    string itemName,
+    string description,
+    ItemType type,
+    Sprite icon = null,
+    WeaponType_n weapon = WeaponType_n.None)
     {
+        Debug.Log("AddItem: " + itemName + " / " + weapon);
+
         foreach (ItemData_n item in itemList)
         {
             if (item.itemName == itemName)

@@ -55,6 +55,18 @@ public class Owlwork_n : MonoBehaviour
 
         if (isMoving) return;
 
+        if (InventoryUI_n.Instance != null)
+        {
+            Debug.Log("Inventory Open = " + InventoryUI_n.Instance.IsOpen);
+            if (InventoryUI_n.Instance.IsOpen)
+            {
+                Debug.Log("プレイヤー操作停止");
+                return;
+            }
+        }
+
+    
+
         Vector3 direction = Vector3.zero;
 
         // WASD入力
@@ -87,6 +99,8 @@ public class Owlwork_n : MonoBehaviour
         // Eキーで調べる
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
+            Debug.Log("Owlwork UpdateでE検知");
+
             if (infoPanel.activeSelf)
             {
                 infoPanel.SetActive(false);
@@ -155,6 +169,8 @@ public class Owlwork_n : MonoBehaviour
     // 前を調べる
     void CheckInteraction()
     {
+        Debug.Log("CheckInteraction開始");
+
         if (currentMystery == null) return;
 
         MysteryWall_n wall =
@@ -190,9 +206,12 @@ public class Owlwork_n : MonoBehaviour
         // 像
         Statue_n statue = currentMystery.GetComponent<Statue_n>();
 
+        Debug.Log("statue = " + statue);
+
         if (statue != null)
         {
-            FindFirstObjectByType<InventoryUI_n>().OpenForStatue(statue);
+            Debug.Log("石像を調べた");
+            InventoryUI_n.Instance.OpenForStatue(statue);
             return;
         }
 
@@ -218,11 +237,11 @@ public class Owlwork_n : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
+            Debug.Log(hit.name + " / " + hit.tag);
+
             if (!hit.CompareTag("Mystery2")) continue;
 
-            MysteryWall_n wall =
-                hit.GetComponent<MysteryWall_n>();
-
+            MysteryWall_n wall = hit.GetComponent<MysteryWall_n>();
             if (wall != null && wall.isChecked)
             {
                 continue;

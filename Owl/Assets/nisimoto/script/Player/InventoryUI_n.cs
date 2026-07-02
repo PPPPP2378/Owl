@@ -13,6 +13,15 @@ public class InventoryUI_n : MonoBehaviour
     private bool isOpen = false;
     private bool isViewingInfo = false;
     private Statue_n currentStatue = null;
+    public static InventoryUI_n Instance;
+    public bool IsOpen => isOpen;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
+
 
     private int selectID = 0;
 
@@ -22,28 +31,39 @@ public class InventoryUI_n : MonoBehaviour
     void Start()
     {
         inventoryPanel.SetActive(false);
-        itemInfoPanel.SetActive(false);
-
+        if (itemInfoPanel != null)
+        {
+            itemInfoPanel.SetActive(false);
+        }
         // 動作確認用（後で消す）
-        InventoryManager_n.Instance.AddItem(
+        /*InventoryManager_n.Instance.AddItem(
             "古い鍵",
             "錆びついた古い鍵。", ItemType.Key,
             null
-        );
+        );*/
     }
     public void OpenForStatue(Statue_n statue)
     {
+        Debug.Log("OpenForStatue 呼ばれた");
         currentStatue = statue;
 
         isOpen = true;
         inventoryPanel.SetActive(true);
 
         selectID = 0;
+        Debug.Log("selectIDを0にした");
 
         UpdateInventory();
+        Debug.Log("OpenForStatue: isOpen = " + isOpen);
+        Debug.Log("inventoryPanel = " + inventoryPanel.activeSelf);
     }
     void Update()
     {
+        Debug.Log("Update: isOpen = " + isOpen);
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("InventoryUI UpdateでE検知");
+        }
         // TABで開閉
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -61,7 +81,10 @@ public class InventoryUI_n : MonoBehaviour
         }
 
         if (!isOpen)
+        {
+            Debug.Log("isOpenがfalseなので終了");
             return;
+        }
 
         if (InventoryManager_n.Instance.itemList.Count == 0)
             return;
@@ -133,6 +156,8 @@ public class InventoryUI_n : MonoBehaviour
 
     void ShowItemInfo()
     {
+        if (itemInfoPanel == null) return;
+
         ItemData_n item = InventoryManager_n.Instance.itemList[selectID];
 
         itemNameText.text = item.itemName;
@@ -146,26 +171,41 @@ public class InventoryUI_n : MonoBehaviour
     {
         ItemData_n item = InventoryManager_n.Instance.itemList[selectID];
 
+        for (int i = 0; i < InventoryManager_n.Instance.itemList.Count; i++)
+        {
+            Debug.Log(i + " : "
+                + InventoryManager_n.Instance.itemList[i].itemName
+                + " / "
+                + InventoryManager_n.Instance.itemList[i].weaponType);
+        }
+
+        Debug.Log("選択中：" + item.itemName);
+        Debug.Log("武器：" + item.weaponType);
+
+        Debug.Log("selectID = " + selectID);
+        Debug.Log("item = " + item.itemName);
+        Debug.Log("weaponType = " + item.weaponType);
+
         // ===== 像に武具を持たせる =====
         if (currentStatue != null)
         {
-            // 武器以外は持たせられない
+            Debug.Log("currentStatueあり");
+
             if (item.itemType != ItemType.Weapon)
             {
-                Debug.Log("これは武具ではありません。");
+                Debug.Log("武器ではない");
                 return;
             }
 
-            // 武器を像に渡す
+            Debug.Log("SetWeaponを呼ぶ直前");
+
             currentStatue.SetWeapon(item.weaponType);
 
-            Debug.Log(item.itemName + "を像に持たせた");
+            Debug.Log("SetWeaponを呼んだ直後");
 
-            // インベントリを閉じる
             currentStatue = null;
             isOpen = false;
             inventoryPanel.SetActive(false);
-
             return;
         }
 

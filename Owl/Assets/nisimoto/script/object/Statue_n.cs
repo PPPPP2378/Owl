@@ -15,11 +15,14 @@ public class Statue_n : MonoBehaviour
 
     public WeaponType_n currentWeapon = WeaponType_n.None;
 
-    //public StatuePuzzle_n puzzle;
+    public StatuePuzzle_n puzzle;
 
     public void SetWeapon(WeaponType_n weapon)
     {
+        Debug.Log("SetWeapon 引数 = " + weapon);
+
         currentWeapon = weapon;
+        Debug.Log("currentWeapon = " + currentWeapon);
 
         // 前の武器を消す
         if (currentWeaponObject != null)
@@ -28,6 +31,8 @@ public class Statue_n : MonoBehaviour
         }
 
         GameObject prefab = null;
+
+        Debug.Log("switchに入る weapon = " + weapon);
 
         switch (weapon)
         {
@@ -52,6 +57,9 @@ public class Statue_n : MonoBehaviour
                 break;
         }
 
+        Debug.Log("生成するPrefab = " + (prefab != null ? prefab.name : "NULL"));
+
+
         // 武器を生成
         if (prefab != null)
         {
@@ -61,13 +69,18 @@ public class Statue_n : MonoBehaviour
                 weaponPoint.rotation,
                 weaponPoint
             );
-
+            Debug.Log("生成されたオブジェクト = " + currentWeaponObject.name);
             currentWeaponObject.transform.localPosition = Vector3.zero;
             currentWeaponObject.transform.localRotation = Quaternion.identity;
         }
 
+        if (puzzle != null)
+        {
+            puzzle.CheckAnswer();
+        }
+
         Debug.Log("像" + statueID + " に " + weapon + " を持たせた");
 
-        // puzzle.CheckAnswer();
+        Debug.Log(gameObject.name + " に " + weapon + " をセット");
     }
 }
