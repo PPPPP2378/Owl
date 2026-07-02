@@ -11,19 +11,44 @@ public class InventoryUI_n : MonoBehaviour
     public TextMeshProUGUI itemDescriptionText;
 
     private bool isOpen = false;
+    private bool isViewingInfo = false;
+    private Statue_n currentStatue = null;
+
     private int selectID = 0;
+
+
+
 
     void Start()
     {
         inventoryPanel.SetActive(false);
-        InventoryManager_n.Instance.AddItem("古い鍵",
-    "錆びついた古い鍵。", null);
-    }
+        itemInfoPanel.SetActive(false);
 
+        // 動作確認用（後で消す）
+        InventoryManager_n.Instance.AddItem(
+            "古い鍵",
+            "錆びついた古い鍵。", ItemType.Key,
+            null
+        );
+    }
+    public void OpenForStatue(Statue_n statue)
+    {
+        currentStatue = statue;
+
+        isOpen = true;
+        inventoryPanel.SetActive(true);
+
+        selectID = 0;
+
+        UpdateInventory();
+    }
     void Update()
     {
+        // TABで開閉
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            if (isViewingInfo) return;
+
             isOpen = !isOpen;
 
             inventoryPanel.SetActive(isOpen);
@@ -36,16 +61,25 @@ public class InventoryUI_n : MonoBehaviour
         }
 
         if (!isOpen)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                ShowItemInfo();
-            }
             return;
-        }
+
         if (InventoryManager_n.Instance.itemList.Count == 0)
             return;
 
+        // 詳細表示中
+        if (isViewingInfo)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) ||
+                Input.GetKeyDown(KeyCode.Q))
+            {
+                itemInfoPanel.SetActive(false);
+                isViewingInfo = false;
+            }
+
+            return;
+        }
+
+        // カーソル移動
         if (Input.GetKeyDown(KeyCode.W))
         {
             selectID--;
@@ -65,17 +99,27 @@ public class InventoryUI_n : MonoBehaviour
 
             UpdateInventory();
         }
+
+        // Q 詳細
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ShowItemInfo();
+        }
+
+        // E 使用
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            UseSelectedItem();
+        }
     }
 
     void UpdateInventory()
     {
-        // 全部非表示
         for (int i = 0; i < itemTexts.Length; i++)
         {
             itemTexts[i].gameObject.SetActive(false);
         }
 
-        // 持ち物表示
         for (int i = 0; i < InventoryManager_n.Instance.itemList.Count && i < itemTexts.Length; i++)
         {
             itemTexts[i].gameObject.SetActive(true);
@@ -89,12 +133,53 @@ public class InventoryUI_n : MonoBehaviour
 
     void ShowItemInfo()
     {
-        ItemData_n item =
-            InventoryManager_n.Instance.itemList[selectID];
+        ItemData_n item = InventoryManager_n.Instance.itemList[selectID];
 
         itemNameText.text = item.itemName;
         itemDescriptionText.text = item.description;
 
         itemInfoPanel.SetActive(true);
+        isViewingInfo = true;
+    }
+
+    void UseSelectedItem()
+    {
+        ItemData_n item = InventoryManager_n.Instance.itemList[selectID];
+
+        // ===== 像に武具を持たせる =====
+        if (currentStatue != null)
+        {
+            // 武器以外は持たせられない
+            if (item.itemType != ItemType.Weapon)
+            {
+                Debug.Log("これは武具ではありません。");
+                return;
+            }
+
+            // 武器を像に渡す
+            currentStatue.SetWeapon(item.weaponType);
+
+            Debug.Log(item.itemName + "を像に持たせた");
+
+            // インベントリを閉じる
+            currentStatue = null;
+            isOpen = false;
+            inventoryPanel.SetActive(false);
+
+            return;
+        }
+
+        // ===== 通常使用 =====
+        switch (item.itemName)
+        {
+            case "古い鍵":
+                break;
+
+            case "盾":
+                break;
+
+            case "使用人のメモ①":
+                break;
+        }
     }
 }

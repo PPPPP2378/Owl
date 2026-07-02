@@ -9,11 +9,15 @@ public class ItemInfoUI_n : MonoBehaviour
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI itemDescriptionText;
 
+    // Å©í«â¡
+    public bool IsOpen { get; private set; }
+
     private void Awake()
     {
         Instance = this;
 
         panel.SetActive(false);
+        IsOpen = false;
     }
 
     void Update()
@@ -21,6 +25,7 @@ public class ItemInfoUI_n : MonoBehaviour
         if (panel.activeSelf && Input.GetKeyDown(KeyCode.E))
         {
             panel.SetActive(false);
+            IsOpen = false;
         }
     }
 
@@ -30,5 +35,6 @@ public class ItemInfoUI_n : MonoBehaviour
         itemDescriptionText.text = description;
 
         panel.SetActive(true);
+        IsOpen = true;
     }
 }

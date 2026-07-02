@@ -117,7 +117,11 @@ public class Owlwork_n : MonoBehaviour
             }
             UpdateVision();
         }
-       
+        if (ItemInfoUI_n.Instance != null &&
+     ItemInfoUI_n.Instance.IsOpen)
+        {
+            return;
+        }
     }
 
     IEnumerator Move(Vector3 direction)
@@ -180,6 +184,15 @@ public class Owlwork_n : MonoBehaviour
             currentMystery = null;
             interactText.SetActive(false);
 
+            return;
+        }
+
+        // ‘œ
+        Statue_n statue = currentMystery.GetComponent<Statue_n>();
+
+        if (statue != null)
+        {
+            FindFirstObjectByType<InventoryUI_n>().OpenForStatue(statue);
             return;
         }
 

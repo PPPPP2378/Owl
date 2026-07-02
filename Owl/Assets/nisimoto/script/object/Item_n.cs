@@ -6,19 +6,19 @@ public class Item_n : MonoBehaviour
     public bool showDescriptionOnPickup = true;
     public string description;
     public Sprite itemIcon;
+    public ItemType itemType;
+    public WeaponType_n weaponType;
+    public Sprite icon;
 
     public void GetItem()
     {
         InventoryManager_n.Instance.AddItem(
-     itemName,
-     description,
-     itemIcon
-        );
-
-        if (showDescriptionOnPickup)
-        {
-           ItemInfoUI_n.Instance.Show(itemName, description);
-        }
+           itemName,
+           description,
+           itemType,
+           icon,
+           weaponType
+       );
 
         Destroy(gameObject);
     }
