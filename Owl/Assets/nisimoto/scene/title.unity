@@ -253,7 +253,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\u3010\u904A\u3073\u65B9\u3011\n\nW A S D \uFF1A\u79FB\u52D5\n     E     
-    \uFF1A\u8ABF\u3079\u308B\n\n\u689F\u304C\u5411\u3044\u3066\u3044\u308B\u65B9\u5411\u3092\u8ABF\u3079\u307E\u3059\u3002\n\n\u30E1\u30E2\u3084\u624B\u304C\u304B\u308A\u3092\u96C6\u3081\u3001\n\u5009\u5EAB\u304B\u3089\u306E\u8131\u51FA\u3092\u76EE\u6307\u3057\u3066\u304F\u3060\u3055\u3044\u3002\n\nESC\uFF1A\u623B\u308B"
+    \uFF1A\u8ABF\u3079\u308B/\u958B\u3044\u3066\u3044\u308B\u6249\u3092\u8ABF\u3079\u308B\u3068\u6B21\u306E\u90E8\u5C4B\u3078\n   
+    Tab      :\u30A2\u30A4\u30C6\u30E0\u6B04\u3092\u958B\u3051\u308B/\u9589\u3058\u308B\n\u689F\u304C\u5411\u3044\u3066\u3044\u308B\u65B9\u5411\u3092\u8ABF\u3079\u307E\u3059\u3002\n\u30E1\u30E2\u3084\u624B\u304C\u304B\u308A\u3092\u96C6\u3081\u3001\n\u53CE\u96C6\u54C1\u5C55\u793A\u5BA4\u304B\u3089\u306E\u8131\u51FA\u3092\u76EE\u6307\u3057\u3066\u304F\u3060\u3055\u3044\u3002\n\nESC\uFF1A\u623B\u308B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e09606b8ad9cd5045ab9593c7a5ff5e2, type: 2}
   m_sharedMaterial: {fileID: -2785987289655681290, guid: e09606b8ad9cd5045ab9593c7a5ff5e2, type: 2}
@@ -960,6 +961,9 @@ MonoBehaviour:
   - {fileID: 1677021736}
   - {fileID: 299293677}
   - {fileID: 445937115}
+  itemInfoPanel: {fileID: 0}
+  itemNameText: {fileID: 0}
+  itemDescriptionText: {fileID: 0}
 --- !u!114 &341302999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -972,7 +976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffae8a11979bb8f4793fcf86ca19d964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList: []
 --- !u!4 &341303000
 Transform:
   m_ObjectHideFlags: 0
