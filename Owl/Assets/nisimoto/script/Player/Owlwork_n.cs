@@ -52,7 +52,7 @@ public class Owlwork_n : MonoBehaviour
 
     void Update()
     {
-
+        Debug.Log("UpdateŠJŽn");
         if (isMoving) return;
 
         if (InventoryUI_n.Instance != null)
@@ -256,6 +256,7 @@ public class Owlwork_n : MonoBehaviour
 
     void Start()
     {
+
         interactText.SetActive(false);
         infoPanel.SetActive(false);
 
