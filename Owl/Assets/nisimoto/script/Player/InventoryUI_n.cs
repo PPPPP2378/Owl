@@ -69,6 +69,12 @@ public class InventoryUI_n : MonoBehaviour
         {
             if (isViewingInfo) return;
 
+            if (inventoryPanel == null)
+            {
+                Debug.LogError("inventoryPanel ‚ª Null ‚Ü‚½‚Í Missing");
+                return;
+            }
+
             isOpen = !isOpen;
 
             inventoryPanel.SetActive(isOpen);
