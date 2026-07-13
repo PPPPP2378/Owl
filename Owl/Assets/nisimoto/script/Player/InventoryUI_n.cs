@@ -9,6 +9,7 @@ public class InventoryUI_n : MonoBehaviour
     public GameObject itemInfoPanel;
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI itemDescriptionText;
+    private bool ignoreNextE = false;
 
     private bool isOpen = false;
     private bool isViewingInfo = false;
@@ -19,10 +20,19 @@ public class InventoryUI_n : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        Debug.Log("InventoryUI Awake : " + gameObject.scene.name + " / " + gameObject.name);
+
+        Invoke(nameof(CheckState), 0.5f);
     }
 
-
-
+    void CheckState()
+    {
+        Debug.Log(
+            "activeSelf=" + gameObject.activeSelf +
+            " activeInHierarchy=" + gameObject.activeInHierarchy +
+            " enabled=" + enabled
+        );
+    }
     private int selectID = 0;
 
 
@@ -30,6 +40,7 @@ public class InventoryUI_n : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Start実行");
         inventoryPanel.SetActive(false);
         if (itemInfoPanel != null)
         {
@@ -44,45 +55,51 @@ public class InventoryUI_n : MonoBehaviour
     }
     public void OpenForStatue(Statue_n statue)
     {
-        Debug.Log("OpenForStatue 呼ばれた");
         currentStatue = statue;
-
         isOpen = true;
         inventoryPanel.SetActive(true);
-
         selectID = 0;
-        Debug.Log("selectIDを0にした");
 
         UpdateInventory();
-        Debug.Log("OpenForStatue: isOpen = " + isOpen);
-        Debug.Log("inventoryPanel = " + inventoryPanel.activeSelf);
+
+        ignoreNextE = true;
     }
     void Update()
     {
+        Debug.Log("Update実行");
         Debug.Log("Update: isOpen = " + isOpen);
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("InventoryUI UpdateでE検知");
+            if (ignoreNextE)
+            {
+                ignoreNextE = false;
+                return;
+            }
+
+            UseSelectedItem();
         }
         // TABで開閉
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (isViewingInfo) return;
+            Debug.Log("Tab押された");
 
-            if (inventoryPanel == null)
+            if (isViewingInfo)
             {
-                Debug.LogError("inventoryPanel が Null または Missing");
+                Debug.Log("詳細表示中");
                 return;
             }
 
             isOpen = !isOpen;
+            Debug.Log("isOpen = " + isOpen);
 
             inventoryPanel.SetActive(isOpen);
+            Debug.Log("SetActive完了");
 
             if (isOpen)
             {
                 selectID = 0;
                 UpdateInventory();
+                Debug.Log("UpdateInventory完了");
             }
         }
 
@@ -90,6 +107,18 @@ public class InventoryUI_n : MonoBehaviour
         {
             Debug.Log("isOpenがfalseなので終了");
             return;
+        }
+
+        // インベントリが開いている時だけEを受け付ける
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (ignoreNextE)
+            {
+                ignoreNextE = false;
+                return;
+            }
+
+            UseSelectedItem();
         }
 
         if (InventoryManager_n.Instance.itemList.Count == 0)
@@ -134,12 +163,6 @@ public class InventoryUI_n : MonoBehaviour
         {
             ShowItemInfo();
         }
-
-        // E 使用
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            UseSelectedItem();
-        }
     }
 
     void UpdateInventory()
@@ -175,6 +198,19 @@ public class InventoryUI_n : MonoBehaviour
 
     void UseSelectedItem()
     {
+        if (InventoryManager_n.Instance.itemList.Count == 0)
+        {
+            Debug.Log("アイテムがありません");
+            return;
+        }
+
+        if (selectID < 0 ||
+            selectID >= InventoryManager_n.Instance.itemList.Count)
+        {
+            Debug.Log("selectIDが範囲外");
+            return;
+        }
+
         ItemData_n item = InventoryManager_n.Instance.itemList[selectID];
 
         for (int i = 0; i < InventoryManager_n.Instance.itemList.Count; i++)

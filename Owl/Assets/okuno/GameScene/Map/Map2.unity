@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorTilemap: {fileID: 248428291}
-  doorTilePosition: {x: 0, y: 0, z: 0}
+  doorTilePosition: {x: -2, y: 6, z: 0}
   openDoorTile: {fileID: 11400000, guid: 9845415a02c01974ba70ea9429976d97, type: 2}
   doorTriggerObject: {fileID: 111918849}
   walls:
@@ -2195,7 +2195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorTilemap: {fileID: 248428291}
-  doorTilePosition: {x: 0, y: 0, z: 0}
+  doorTilePosition: {x: -3, y: 7, z: 0}
   openDoorTile: {fileID: 11400000, guid: 9845415a02c01974ba70ea9429976d97, type: 2}
   doorTriggerObject: {fileID: 0}
   statues:
@@ -5967,6 +5967,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1290337874}
+  - {fileID: 743710783}
+  - {fileID: 290973156}
+  - {fileID: 1804406300}
   - {fileID: 1457541851}
   - {fileID: 1000971806}
   - {fileID: 882098720}
@@ -5974,14 +5977,11 @@ SceneRoots:
   - {fileID: 665978232}
   - {fileID: 1849612204}
   - {fileID: 1447398820}
-  - {fileID: 743710783}
   - {fileID: 248263352}
   - {fileID: 111918852}
   - {fileID: 356796866}
-  - {fileID: 1804406300}
   - {fileID: 700903769}
   - {fileID: 672237689}
   - {fileID: 1002287633}
   - {fileID: 464408501}
   - {fileID: 302152344}
-  - {fileID: 290973156}

@@ -9,6 +9,9 @@ public class Owlwork_n : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float gridSize = 1f;
+    public float repeatDelay = 0.2f;
+    private float nextMoveTime = 0f;
+
 
     public GameObject interactText;//”調べる”のUI
 
@@ -52,48 +55,54 @@ public class Owlwork_n : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Update開始");
-        if (isMoving) return;
-
-        if (InventoryUI_n.Instance != null)
+        // インベントリを開いている間はプレイヤー操作を止める
+        if (InventoryUI_n.Instance != null &&
+            InventoryUI_n.Instance.IsOpen)
         {
-            Debug.Log("Inventory Open = " + InventoryUI_n.Instance.IsOpen);
-            if (InventoryUI_n.Instance.IsOpen)
-            {
-                Debug.Log("プレイヤー操作停止");
-                return;
-            }
+            return;
         }
 
-    
+        // アイテム詳細を開いている間も止める
+        if (ItemInfoUI_n.Instance != null &&
+            ItemInfoUI_n.Instance.IsOpen)
+        {
+            return;
+        }
+
+        Debug.Log("Update開始");
+
+        if (isMoving) return;
 
         Vector3 direction = Vector3.zero;
 
-        // WASD入力
-        if (Keyboard.current.wKey.wasPressedThisFrame)
+        if (Time.time >= nextMoveTime)
         {
-            direction = Vector3.up;
-            facingDirection = direction;
-        }
+            if (Keyboard.current.wKey.isPressed)
+            {
+                direction = Vector3.up;
+                facingDirection = direction;
+            }
+            else if (Keyboard.current.sKey.isPressed)
+            {
+                direction = Vector3.down;
+                facingDirection = direction;
+            }
+            else if (Keyboard.current.aKey.isPressed)
+            {
+                direction = Vector3.left;
+                facingDirection = direction;
+            }
+            else if (Keyboard.current.dKey.isPressed)
+            {
+                direction = Vector3.right;
+                facingDirection = direction;
+            }
 
-        else if (Keyboard.current.sKey.wasPressedThisFrame)
-        {
-            direction = Vector3.down;
-            facingDirection = direction;
+            if (direction != Vector3.zero)
+            {
+                nextMoveTime = Time.time + repeatDelay;
+            }
         }
-
-        else if (Keyboard.current.aKey.wasPressedThisFrame)
-        {
-            direction = Vector3.left;
-            facingDirection = direction;
-        }
-
-        else if (Keyboard.current.dKey.wasPressedThisFrame)
-        {
-            direction = Vector3.right;
-            facingDirection = direction;
-        }
-
         CheckFrontObject();
 
         // Eキーで調べる
