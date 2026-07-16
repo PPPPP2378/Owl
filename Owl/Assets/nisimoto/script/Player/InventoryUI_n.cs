@@ -1,5 +1,7 @@
-using UnityEngine;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+using System.Collections.Generic;
 
 public class InventoryUI_n : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class InventoryUI_n : MonoBehaviour
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI itemDescriptionText;
     private bool ignoreNextE = false;
+    private List<ItemData_n> displayItems = new List<ItemData_n>();
 
     private bool isOpen = false;
     private bool isViewingInfo = false;
@@ -167,27 +170,58 @@ public class InventoryUI_n : MonoBehaviour
 
     void UpdateInventory()
     {
+        displayItems.Clear();
+
         for (int i = 0; i < itemTexts.Length; i++)
         {
             itemTexts[i].gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < InventoryManager_n.Instance.itemList.Count && i < itemTexts.Length; i++)
+        foreach (ItemData_n item in InventoryManager_n.Instance.itemList)
+        {
+            if (!item.isPlaced)
+            {
+                displayItems.Add(item);
+            }
+        }
+
+        if (selectID >= displayItems.Count)
+        {
+            selectID = Mathf.Max(0, displayItems.Count - 1);
+        }
+
+        for (int i = 0; i < displayItems.Count && i < itemTexts.Length; i++)
         {
             itemTexts[i].gameObject.SetActive(true);
 
             if (i == selectID)
-                itemTexts[i].text = "> " + InventoryManager_n.Instance.itemList[i].itemName;
+                itemTexts[i].text = "> " + displayItems[i].itemName;
             else
-                itemTexts[i].text = "  " + InventoryManager_n.Instance.itemList[i].itemName;
+                itemTexts[i].text = "  " + displayItems[i].itemName;
         }
+    }
+
+    public void RefreshInventory()
+    {
+        UpdateInventory();
     }
 
     void ShowItemInfo()
     {
         if (itemInfoPanel == null) return;
 
-        ItemData_n item = InventoryManager_n.Instance.itemList[selectID];
+        List<ItemData_n> displayItems = new List<ItemData_n>();
+
+        foreach (ItemData_n data in InventoryManager_n.Instance.itemList)
+        {
+            if (!data.isPlaced)
+                displayItems.Add(data);
+        }
+
+        if (selectID < 0 || selectID >= displayItems.Count)
+            return;
+
+        ItemData_n item = displayItems[selectID];
 
         itemNameText.text = item.itemName;
         itemDescriptionText.text = item.description;
@@ -211,7 +245,13 @@ public class InventoryUI_n : MonoBehaviour
             return;
         }
 
-        ItemData_n item = InventoryManager_n.Instance.itemList[selectID];
+        if (selectID < 0 || selectID >= displayItems.Count)
+        {
+            Debug.Log("selectIDが範囲外");
+            return;
+        }
+
+        ItemData_n item = displayItems[selectID];
 
         for (int i = 0; i < InventoryManager_n.Instance.itemList.Count; i++)
         {
@@ -241,9 +281,24 @@ public class InventoryUI_n : MonoBehaviour
 
             Debug.Log("SetWeaponを呼ぶ直前");
 
+            if (currentStatue.currentItem != null)
+            {
+                currentStatue.currentItem.isPlaced = false;
+            }
+
+            currentStatue.currentItem = item;
+            item.isPlaced = true;
             currentStatue.SetWeapon(item.weaponType);
 
+            if (currentStatue.puzzle != null &&
+    currentStatue.puzzle.IsAllPlaced())
+            {
+                currentStatue.puzzle.CheckAnswer();
+            }
+
             Debug.Log("SetWeaponを呼んだ直後");
+
+            UpdateInventory();
 
             currentStatue = null;
             isOpen = false;
@@ -262,6 +317,13 @@ public class InventoryUI_n : MonoBehaviour
 
             case "使用人のメモ①":
                 break;
+        }
+
+        Debug.Log("itemList.Count = " + InventoryManager_n.Instance.itemList.Count);
+
+        foreach (ItemData_n data in InventoryManager_n.Instance.itemList)
+        {
+            Debug.Log(data.itemName + " isPlaced=" + data.isPlaced);
         }
     }
 }

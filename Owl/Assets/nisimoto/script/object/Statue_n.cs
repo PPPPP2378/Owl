@@ -11,6 +11,8 @@ public class Statue_n : MonoBehaviour
     public GameObject spearPrefab;
     public GameObject bowPrefab;
 
+    public ItemData_n currentItem;
+
     private GameObject currentWeaponObject;
 
     public WeaponType_n currentWeapon = WeaponType_n.None;
@@ -74,10 +76,9 @@ public class Statue_n : MonoBehaviour
             currentWeaponObject.transform.localRotation = Quaternion.identity;
         }
 
-        if (puzzle != null)
-        {
-            puzzle.CheckAnswer();
-        }
+        
+
+     
 
         Debug.Log("ëú" + statueID + " Ç… " + weapon + " ÇéùÇΩÇπÇΩ");
 

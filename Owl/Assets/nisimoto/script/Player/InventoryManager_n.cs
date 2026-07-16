@@ -23,11 +23,12 @@ public class InventoryManager_n : MonoBehaviour
     }
 
     public void AddItem(
-    string itemName,
-    string description,
-    ItemType type,
-    Sprite icon = null,
-    WeaponType_n weapon = WeaponType_n.None)
+     string itemName,
+     string description,
+     ItemType type,
+     Sprite icon = null,
+     WeaponType_n weapon = WeaponType_n.None,
+     int weight = 0)
     {
         Debug.Log("AddItem: " + itemName + " / " + weapon);
 
