@@ -224,12 +224,20 @@ public class Owlwork_n : MonoBehaviour
             return;
         }
 
-        Memo_n memo =currentMystery.GetComponent<Memo_n>();
-
+        Memo_n memo = currentMystery.GetComponent<Memo_n>();
         if (memo != null)
         {
-            infoImage.sprite = memo.memoImage;
-            infoPanel.SetActive(true);
+            if (memo.memoImage != null)
+            {
+                infoImage.sprite = memo.memoImage;
+                infoPanel.SetActive(true);
+            }
+            else
+            {
+                MessageManager_n.instance.ShowMessage(memo.memoText);
+            }
+
+            return;
         }
     }
 

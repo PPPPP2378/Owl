@@ -44,7 +44,8 @@ public class InventoryManager_n : MonoBehaviour
                 description,
                 type,
                 icon,
-                weapon
+                weapon,
+                weight
             )
         );
 
