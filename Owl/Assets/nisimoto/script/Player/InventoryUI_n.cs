@@ -71,16 +71,6 @@ public class InventoryUI_n : MonoBehaviour
     {
         Debug.Log("Updateé¿çs");
         Debug.Log("Update: isOpen = " + isOpen);
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (ignoreNextE)
-            {
-                ignoreNextE = false;
-                return;
-            }
-
-            UseSelectedItem();
-        }
         // TABÇ≈äJï¬
         if (Input.GetKeyDown(KeyCode.Tab))
         {

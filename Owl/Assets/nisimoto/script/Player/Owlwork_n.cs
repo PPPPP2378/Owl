@@ -60,8 +60,9 @@ public class Owlwork_n : MonoBehaviour
             InventoryUI_n.Instance.IsOpen)
         {
             return;
+           
         }
-
+        Debug.Log("ここまで来た");
         // アイテム詳細を開いている間も止める
         if (ItemInfoUI_n.Instance != null &&
             ItemInfoUI_n.Instance.IsOpen)
@@ -105,6 +106,8 @@ public class Owlwork_n : MonoBehaviour
         }
         CheckFrontObject();
 
+        Debug.Log("E判定前");
+
         // Eキーで調べる
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
@@ -116,7 +119,9 @@ public class Owlwork_n : MonoBehaviour
             }
             else
             {
+                Debug.Log("CheckInteraction呼び出し前");
                 CheckInteraction();
+                Debug.Log("CheckInteraction終了");
             }
         }
 
@@ -180,6 +185,13 @@ public class Owlwork_n : MonoBehaviour
     {
         Debug.Log("CheckInteraction開始");
 
+        if (currentMystery == null)
+        {
+            Debug.Log("currentMystery が null");
+            return;
+        }
+
+        Debug.Log("対象 : " + currentMystery.name);
         if (currentMystery == null) return;
 
         MysteryWall_n wall =
@@ -221,6 +233,15 @@ public class Owlwork_n : MonoBehaviour
         {
             Debug.Log("石像を調べた");
             InventoryUI_n.Instance.OpenForStatue(statue);
+            return;
+        }
+
+        Painting_n painting = currentMystery.GetComponent<Painting_n>();
+        Debug.Log("painting = " + painting);
+        if (painting != null)
+        {
+            Debug.Log("ShowInfo呼び出し");
+            painting.ShowInfo();
             return;
         }
 

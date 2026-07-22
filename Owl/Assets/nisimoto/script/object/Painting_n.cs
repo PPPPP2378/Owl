@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class Painting_n : MonoBehaviour
 {
+    [Header("ŠG‰æ–¼")]
+    public string paintingName;
+
+    [TextArea]
+    public string description;
+
     [Header("‚±‚ÌŠG‰æ‚Ì³‰ğ”Ô†")]
     public int correctAnswer;
 
@@ -9,6 +15,11 @@ public class Painting_n : MonoBehaviour
     public bool isSolved = false;
 
     public PaintingPuzzle_n puzzle;
+
+    public void ShowInfo()
+    {
+        MessageManager_n.instance.ShowMessage(description);
+    }
 
     // ‘I‘ğˆ‚Å‘I‚Î‚ê‚½‚ÉŒÄ‚Ô
     public void SelectAnswer(int answer)

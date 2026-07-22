@@ -10,6 +10,8 @@ public class MessageManager_n : MonoBehaviour
     void Awake()
     {
         instance = this;
+        Debug.Log("MessageManager Awake");
+
         if (messageText != null)
         {
             messageText.text = "";
