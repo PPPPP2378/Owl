@@ -62,6 +62,11 @@ public class Owlwork_n : MonoBehaviour
             return;
            
         }
+        if (MessageManager_n.instance != null &&
+    MessageManager_n.instance.isChoiceActive)
+        {
+            return;
+        }
         Debug.Log("ここまで来た");
         // アイテム詳細を開いている間も止める
         if (ItemInfoUI_n.Instance != null &&
@@ -71,6 +76,12 @@ public class Owlwork_n : MonoBehaviour
         }
 
         Debug.Log("Update開始");
+
+        if (MessageManager_n.instance != null &&
+    MessageManager_n.instance.isChoiceActive)
+        {
+            return;
+        }
 
         if (isMoving) return;
 
@@ -111,18 +122,19 @@ public class Owlwork_n : MonoBehaviour
         // Eキーで調べる
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            Debug.Log("Owlwork UpdateでE検知");
+            if (MessageManager_n.instance != null &&
+                MessageManager_n.instance.isChoiceActive)
+            {
+                return;
+            }
 
-            if (infoPanel.activeSelf)
+            if (MessageManager_n.instance != null &&
+                MessageManager_n.instance.messageText.gameObject.activeSelf)
             {
-                infoPanel.SetActive(false);
+                return;
             }
-            else
-            {
-                Debug.Log("CheckInteraction呼び出し前");
-                CheckInteraction();
-                Debug.Log("CheckInteraction終了");
-            }
+
+            CheckInteraction();
         }
 
         // 移動処理

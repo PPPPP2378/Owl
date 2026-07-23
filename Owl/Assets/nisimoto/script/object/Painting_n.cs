@@ -16,9 +16,27 @@ public class Painting_n : MonoBehaviour
 
     public PaintingPuzzle_n puzzle;
 
+    public void StartPuzzle()
+    {
+        MessageManager_n.instance.ShowMessage(
+            "よく見ると違和感がある……"
+        );
+
+        // ここから後で絵画パズル開始
+    }
+
     public void ShowInfo()
     {
-        MessageManager_n.instance.ShowMessage(description);
+        MessageManager_n.instance.currentPainting = this;
+
+        MessageManager_n.instance.ShowMessage(
+            "『真珠の耳飾りの少女』のようだ。\n\n調べてみようか？"
+        );
+
+        MessageManager_n.instance.ShowChoice(
+            "調べる",
+            "やめる"
+        );
     }
 
     // 選択肢で選ばれた時に呼ぶ
@@ -39,4 +57,6 @@ public class Painting_n : MonoBehaviour
             // 後でここに「違うようだ」などのメッセージを追加
         }
     }
+
+   
 }
