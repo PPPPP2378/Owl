@@ -141,7 +141,7 @@ public class MessageManager_n : MonoBehaviour
 
             if (currentPainting != null)
             {
-                currentPainting.StartPuzzle();
+               currentPainting.CheckPainting();
             }
         }
         else
