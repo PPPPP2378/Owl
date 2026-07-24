@@ -269,6 +269,14 @@ public class Owlwork_n : MonoBehaviour
             return;
         }
 
+        PaintingDoor_n door = currentMystery.GetComponent<PaintingDoor_n>();
+
+        if (door != null)
+        {
+            door.ShowQuestion();
+            return;
+        }
+
         Memo_n memo = currentMystery.GetComponent<Memo_n>();
         if (memo != null)
         {
