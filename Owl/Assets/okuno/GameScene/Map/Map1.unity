@@ -1298,6 +1298,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 839559991}
     - target: {fileID: 104638703219591758, guid: 13bf853ed57d48947b0ff632f987e53d, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 1714914356}
+    - target: {fileID: 104638703219591758, guid: 13bf853ed57d48947b0ff632f987e53d, type: 3}
       propertyPath: wallSequenceDoor
       value: 
       objectReference: {fileID: 647069663}
@@ -5032,6 +5036,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684003586}
   m_CullTransparentMesh: 1
+--- !u!212 &1714914356 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3537320396656221164, guid: 13bf853ed57d48947b0ff632f987e53d, type: 3}
+  m_PrefabInstance: {fileID: 418085832}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1763091405
 GameObject:
   m_ObjectHideFlags: 0
