@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Painting_n : MonoBehaviour
@@ -15,6 +16,9 @@ public class Painting_n : MonoBehaviour
     public bool isSolved = false;
 
     public PaintingPuzzle_n puzzle;
+
+    [Header("‹U•¨‚©‚Ç‚¤‚©")]
+    public bool isFake;
 
     public void StartPuzzle()
     {
@@ -37,6 +41,11 @@ public class Painting_n : MonoBehaviour
             "’²‚×‚é",
             "‚â‚ß‚é"
         );
+    }
+
+    public void CheckPainting()
+    {
+        MessageManager_n.instance.ShowMessage(description);
     }
 
     // ‘I‘ðŽˆ‚Å‘I‚Î‚ê‚½Žž‚ÉŒÄ‚Ô
