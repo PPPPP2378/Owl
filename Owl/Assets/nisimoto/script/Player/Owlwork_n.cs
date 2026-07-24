@@ -45,6 +45,13 @@ public class Owlwork_n : MonoBehaviour
     // çïÇ¢É^ÉCÉã
     public TileBase darkTile;
 
+    public SpriteRenderer spriteRenderer;
+
+    public Sprite downSprite;
+    public Sprite upSprite;
+    public Sprite leftSprite;
+    public Sprite rightSprite;
+
     // ëOâÒè∆ÇÁÇµÇΩèÍèä
     private List<Vector3Int> lastVisionTiles = new List<Vector3Int>();
 
@@ -93,21 +100,26 @@ public class Owlwork_n : MonoBehaviour
             {
                 direction = Vector3.up;
                 facingDirection = direction;
+                spriteRenderer.sprite = upSprite;
             }
             else if (Keyboard.current.sKey.isPressed)
             {
                 direction = Vector3.down;
                 facingDirection = direction;
+                spriteRenderer.sprite = downSprite;
             }
             else if (Keyboard.current.aKey.isPressed)
             {
                 direction = Vector3.left;
                 facingDirection = direction;
+                spriteRenderer.sprite = leftSprite;
             }
+        
             else if (Keyboard.current.dKey.isPressed)
             {
                 direction = Vector3.right;
                 facingDirection = direction;
+                spriteRenderer.sprite = rightSprite;
             }
 
             if (direction != Vector3.zero)

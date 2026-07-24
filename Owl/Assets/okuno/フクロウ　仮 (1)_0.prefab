@@ -133,6 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   gridSize: 1
+  repeatDelay: 0.2
   interactText: {fileID: 0}
   wallSequenceDoor: {fileID: 0}
   infoPanel: {fileID: 0}
@@ -148,6 +149,11 @@ MonoBehaviour:
   visionLength: 5
   darknessTilemap: {fileID: 0}
   darkTile: {fileID: 0}
+  spriteRenderer: {fileID: 3537320396656221164}
+  downSprite: {fileID: -7405912135592362932, guid: 2687ee728cc7c9843987f60712a1d5fe, type: 3}
+  upSprite: {fileID: 2424493558783497622, guid: 2e58a6eecc3874a48b983868b3931b44, type: 3}
+  leftSprite: {fileID: 7777421938696464035, guid: 4eedc015e408a3a4896fc665ef2f740f, type: 3}
+  rightSprite: {fileID: 8680152006714117084, guid: 8466a824277b4e3438bff9b1c015cb78, type: 3}
 --- !u!61 &1624923657463109814
 BoxCollider2D:
   m_ObjectHideFlags: 0
