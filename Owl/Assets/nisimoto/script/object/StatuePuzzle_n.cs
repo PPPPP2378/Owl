@@ -23,33 +23,15 @@ public class StatuePuzzle_n : MonoBehaviour
     {
         bool allCorrect = true;
 
-        // 間違っている石像だけリセット
         for (int i = 0; i < statues.Length; i++)
         {
             if (statues[i].currentWeapon != answer[i])
             {
                 allCorrect = false;
-
-                if (statues[i].currentItem != null)
-                {
-                    Debug.Log("戻す武器：" + statues[i].currentItem.itemName);
-                    // 武器をインベントリに戻す
-                    statues[i].currentItem.isPlaced = false;
-                    statues[i].currentItem = null;
-                }
-
-                // 石像の武器を消す
-                statues[i].SetWeapon(WeaponType_n.None);
-
-                // インベントリ表示を更新
-                InventoryUI_n.Instance.RefreshInventory();
+                break;
             }
         }
 
-        // インベントリ表示を更新
-       // InventoryUI_n.Instance.RefreshInventory();
-
-        // 全部正解なら扉を開ける
         if (allCorrect)
         {
             Debug.Log("全部正解");
