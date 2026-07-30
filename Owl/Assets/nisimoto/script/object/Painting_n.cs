@@ -32,6 +32,7 @@ public class Painting_n : MonoBehaviour
     public void ShowInfo()
     {
         MessageManager_n.instance.currentPainting = this;
+        MessageManager_n.instance.isDoorChoice = false;
 
         MessageManager_n.instance.ShowMessage(
             "『" + paintingName + "』のようだ。\n\n調べてみようか？"
