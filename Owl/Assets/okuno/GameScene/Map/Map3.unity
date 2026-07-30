@@ -788,7 +788,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u4F7F\u7528\u4EBA\u306E\u30E1\u30E2\uFF13"
   showDescriptionOnPickup: 1
-  description: 
+  description: "\u4ECA\u65E5\u3082\u65B0\u3057\u3044\u7D75\u753B\u304C\u904B\u3073\u8FBC\u307E\u308C\u307E\u3057\u305F\u3002
+    \u56DB\u679A\u306E\u7D75\u753B\u306E\u3046\u3061\u3001\u672C\u7269\u306F\u4E00\u679A\u3060\u3051\u3002
+    \u53CE\u96C6\u5BB6\u306F\u304A\u3063\u3057\u3083\u308A\u307E\u3057\u305F\u3002  
+    \u300E\u4FA1\u5024\u3068\u306F\u77E5\u540D\u5EA6\u3067\u306F\u306A\u3044\u3002  
+    \u6709\u540D\u306A\u4F5C\u54C1\u307B\u3069\u3001\u4EBA\u306F\u7591\u308F\u306A\u3044\u3002  
+    \u3060\u304B\u3089\u3053\u305D\u3001\u771F\u5B9F\u306F\u7A81\u7136\u59FF\u304C\u898B\u3048\u306A\u304F\u306A\u308B\u306E\u3060\u3002\u300F\u3068\u3002"
   itemIcon: {fileID: 0}
   itemType: 2
   weaponType: 0
@@ -805,7 +810,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb786111027903841b52631bdff9ded3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  memoText: 
+  memoText: "\u4ECA\u65E5\u3082\u65B0\u3057\u3044\u7D75\u753B\u304C\u904B\u3073\u8FBC\u307E\u308C\u307E\u3057\u305F\u3002\n\u56DB\u679A\u306E\u7D75\u753B\u306E\u3046\u3061\u3001\u672C\u7269\u306F\u4E00\u679A\u3060\u3051\u3002\n\u53CE\u96C6\u5BB6\u306F\u304A\u3063\u3057\u3083\u308A\u307E\u3057\u305F\u3002\n
+    \n\u300E\u4FA1\u5024\u3068\u306F\u77E5\u540D\u5EA6\u3067\u306F\u306A\u3044\u3002\n
+    \n\u6709\u540D\u306A\u4F5C\u54C1\u307B\u3069\u3001\u4EBA\u306F\u7591\u308F\u306A\u3044\u3002\n
+    \n\u3060\u304B\u3089\u3053\u305D\u3001\u771F\u5B9F\u306F\u898B\u3048\u306A\u304F\u306A\u308B\u306E\u3060\u3002\u300F\u3068\u3002"
   memoImage: {fileID: 0}
 --- !u!58 &183271361
 CircleCollider2D:
@@ -929,7 +937,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: ---
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a27e1ea30f1aeeb478c979732f6a5f53, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4919874a0efd0044f9e5dc940eef8785, type: 2}
   m_sharedMaterial: {fileID: -2785987289655681290, guid: e09606b8ad9cd5045ab9593c7a5ff5e2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1547,7 +1555,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 200, y: -62.5}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &384704654
@@ -1819,7 +1827,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 125}
+  m_AnchoredPosition: {x: 200, y: 62.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &506532974
