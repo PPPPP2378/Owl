@@ -40,12 +40,20 @@ public class MessageManager_n : MonoBehaviour
 
     public void ShowMessage(string message)
     {
-        Debug.Log("ShowMessage呼び出し：" + message);
+        Debug.Log("ShowMessage開始");
 
+        if (messageText == null)
+        {
+            Debug.LogError("messageText が null");
+            return;
+        }
+
+        // ←これを追加
         messageText.gameObject.SetActive(true);
+
         messageText.text = message;
 
-        Debug.Log("現在表示：" + messageText.text);
+        Debug.Log("表示文字：" + message);
     }
 
     public void ShowChoice(string choice1, string choice2)
