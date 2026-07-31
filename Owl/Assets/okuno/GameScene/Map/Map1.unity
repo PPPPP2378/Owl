@@ -3315,7 +3315,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "E:\u8ABF\u3079\u308B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a27e1ea30f1aeeb478c979732f6a5f53, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f55099e0be4722f4293ca6b94c565f2a, type: 2}
   m_sharedMaterial: {fileID: -2785987289655681290, guid: e09606b8ad9cd5045ab9593c7a5ff5e2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -6065,7 +6065,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "E\uFF1A\u79FB\u52D5\u3059\u308B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a27e1ea30f1aeeb478c979732f6a5f53, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f55099e0be4722f4293ca6b94c565f2a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
