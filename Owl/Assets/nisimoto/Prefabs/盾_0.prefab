@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u76FE"
   showDescriptionOnPickup: 1
-  description: 
+  description: "\u6301\u3061\u624B\u306B\uFF13\u3068\u30BF\u30B0\u4ED8\u3051\u3055\u308C\u3066\u3044\u308B"
   itemIcon: {fileID: 0}
   itemType: 1
   weaponType: 3
