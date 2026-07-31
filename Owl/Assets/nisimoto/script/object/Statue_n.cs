@@ -79,11 +79,17 @@ public class Statue_n : MonoBehaviour
         if (prefab != null)
         {
             currentWeaponObject = Instantiate(
-                prefab,
-                weaponPoint.position,
-                weaponPoint.rotation,
-                weaponPoint
-            );
+     prefab,
+     weaponPoint.position,
+     weaponPoint.rotation,
+      weaponPoint
+ );
+            currentWeaponObject.GetComponent<SpriteRenderer>().color = Color.red;
+            currentWeaponObject.GetComponent<SpriteRenderer>().sortingOrder = 100;
+            currentWeaponObject.transform.position = new Vector3(0, 0, 0);
+
+            currentWeaponObject.transform.localScale = new Vector3(0.3f, 0.3f, 1);
+
             Debug.Log("生成されたオブジェクト = " + currentWeaponObject.name);
             currentWeaponObject.transform.localPosition = Vector3.zero;
             currentWeaponObject.transform.localRotation = Quaternion.identity;
