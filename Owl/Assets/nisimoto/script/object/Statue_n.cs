@@ -21,6 +21,19 @@ public class Statue_n : MonoBehaviour
 
     public void SetWeapon(WeaponType_n weapon)
     {
+        if (weapon == WeaponType_n.None)
+        {
+            currentWeapon = WeaponType_n.None;
+
+            if (currentWeaponObject != null)
+            {
+                Destroy(currentWeaponObject);
+                currentWeaponObject = null;
+            }
+
+            return;
+        }
+
         Debug.Log("SetWeapon à¯êî = " + weapon);
 
         currentWeapon = weapon;
