@@ -174,17 +174,6 @@ public class Owlwork_n : MonoBehaviour
         {
             return;
         }
-
-        if(infoPanel.activeSelf)
-        {
-            if(Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                infoPanel.SetActive(false);
-            }
-
-            return;
-        }
-
     }
 
     IEnumerator Move(Vector3 direction)

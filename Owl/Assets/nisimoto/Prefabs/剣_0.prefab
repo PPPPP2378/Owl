@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6426320740976860797}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.86, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u5263"
   showDescriptionOnPickup: 1
-  description: "\u88CF\u5074\u306B\uFF11\u3068\u30BF\u30B0\u4ED8\u3051\u3055\u308C\u3066\u3044\u308B"
+  description: "\u53E4\u3073\u305F\u5263"
   itemIcon: {fileID: 0}
   itemType: 1
   weaponType: 1

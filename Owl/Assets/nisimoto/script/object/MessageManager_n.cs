@@ -20,7 +20,6 @@ public class MessageManager_n : MonoBehaviour
     string currentChoice2;
 
     public bool isChoiceActive = false;
-    public bool isDoorChoice = false;
 
     bool canSelect = false;
 
@@ -69,11 +68,7 @@ public class MessageManager_n : MonoBehaviour
 
     void Update()
     {
-        if (PaintingSelect_n.Instance != null &&
-     PaintingSelect_n.Instance.panel.activeSelf)
-        {
-            return;
-        }
+       
 
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -144,18 +139,9 @@ public class MessageManager_n : MonoBehaviour
 
             HideChoice();
 
-            // ===== ŠG‰æ =====
             if (currentPainting != null)
             {
-                currentPainting.CheckPainting();
-                return;
-            }
-
-            // ===== ŠG‰æ‚Ì”à =====
-            if (isDoorChoice)
-            {
-                PaintingSelect_n.Instance.Open();
-                return;
+               currentPainting.CheckPainting();
             }
         }
         else
