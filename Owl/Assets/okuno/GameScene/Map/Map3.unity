@@ -3210,7 +3210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSolved: 0
-  nextSceneName: Map4
+  nextSceneName: Ending
 --- !u!1 &1314342305
 GameObject:
   m_ObjectHideFlags: 0
