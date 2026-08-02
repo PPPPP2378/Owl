@@ -1,3 +1,4 @@
+//MysteryObject.cs
 using UnityEngine;
 
 public class MysteryObject : MonoBehaviour

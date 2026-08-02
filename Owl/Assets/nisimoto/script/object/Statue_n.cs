@@ -1,3 +1,4 @@
+//Statue_n.cs
 using UnityEngine;
 
 public class Statue_n : MonoBehaviour

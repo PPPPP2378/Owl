@@ -1,3 +1,4 @@
+//PaintingSelect_n.cs
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;

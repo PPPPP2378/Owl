@@ -1,3 +1,4 @@
+//InventoryManager_n.cs
 using System.Collections.Generic;
 using UnityEngine;
 

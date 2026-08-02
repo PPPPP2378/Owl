@@ -1,3 +1,4 @@
+//MysteryWall.cs
 using UnityEngine;
 
 public class MysteryWall_n : MonoBehaviour

@@ -1,3 +1,4 @@
+//Memo.cs
 using UnityEngine;
 
 public class Memo_n : MonoBehaviour

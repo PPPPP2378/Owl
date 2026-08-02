@@ -1,3 +1,4 @@
+//ItemInfoUI_n.cs
 using TMPro;
 using UnityEngine;
 

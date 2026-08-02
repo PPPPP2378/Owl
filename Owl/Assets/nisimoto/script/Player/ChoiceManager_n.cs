@@ -1,3 +1,4 @@
+//ChoiceManager_n.cs
 using UnityEngine;
 using TMPro;
 

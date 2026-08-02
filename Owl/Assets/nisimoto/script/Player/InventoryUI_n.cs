@@ -1,3 +1,4 @@
+//InventoryUI_n.cs
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -249,6 +250,9 @@ public class InventoryUI_n : MonoBehaviour
 
     void UseSelectedItem()
     {
+        Debug.Log("UseSelectedItem 呼び出し");
+        Debug.Log("currentStatue = " + currentStatue);
+
         if (InventoryManager_n.Instance.itemList.Count == 0)
         {
             Debug.Log("アイテムがありません");

@@ -1,3 +1,4 @@
+//MessageManager_n.cs
 using UnityEngine;
 using TMPro;
 using System.Collections;

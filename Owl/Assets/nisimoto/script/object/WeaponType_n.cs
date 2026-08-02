@@ -1,3 +1,4 @@
+//WeaponType_n.cs
 using UnityEngine;
 
 public enum WeaponType_n

@@ -1,3 +1,4 @@
+//ItemData_n.cs
 using UnityEngine;
 
 public enum ItemType

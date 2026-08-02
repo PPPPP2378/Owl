@@ -1,3 +1,4 @@
+//WeightData_n.cs
 using UnityEngine;
 
 public class WeightData_n : MonoBehaviour

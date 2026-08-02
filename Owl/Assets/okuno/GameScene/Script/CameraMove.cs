@@ -1,3 +1,4 @@
+//CameraMove.cs
 using UnityEngine;
 using TMPro;
 

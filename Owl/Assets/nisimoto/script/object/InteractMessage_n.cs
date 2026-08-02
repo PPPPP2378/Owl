@@ -1,3 +1,4 @@
+//InteractMessage_n.cs
 using UnityEngine;
 
 public class InteractMessage_n : MonoBehaviour
