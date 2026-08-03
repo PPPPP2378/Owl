@@ -79,26 +79,40 @@ public class Statue_n : MonoBehaviour
         // 武器を生成
         if (prefab != null)
         {
+            Debug.Log("weaponPoint = " + weaponPoint.name);
+            Debug.Log("Prefab = " + prefab.name);
+
             currentWeaponObject = Instantiate(
-     prefab,
-     weaponPoint.position,
-     weaponPoint.rotation,
-      weaponPoint
- );
-            currentWeaponObject.GetComponent<SpriteRenderer>().color = Color.red;
-            currentWeaponObject.GetComponent<SpriteRenderer>().sortingOrder = 100;
-            currentWeaponObject.transform.position = new Vector3(0, 0, 0);
+                prefab,
+                weaponPoint.position,
+                weaponPoint.rotation,
+                weaponPoint
+            );
 
-            currentWeaponObject.transform.localScale = new Vector3(0.3f, 0.3f, 1);
+            Debug.Log("world = " + currentWeaponObject.transform.position);
+            Debug.Log("local = " + currentWeaponObject.transform.localPosition);
+            Debug.Log("parent = " + currentWeaponObject.transform.parent.name);
 
-            Debug.Log("生成されたオブジェクト = " + currentWeaponObject.name);
+            Debug.Log("生成 = " + currentWeaponObject);
+
+            SpriteRenderer sr = currentWeaponObject.GetComponent<SpriteRenderer>();
+
+            sr.sortingLayerName = "Default";
+            sr.sortingOrder = 100;
+
+            Debug.Log("SpriteRenderer = " + sr);
+
+            if (sr != null)
+                Debug.Log("Sprite = " + sr.sprite);
+
             currentWeaponObject.transform.localPosition = Vector3.zero;
             currentWeaponObject.transform.localRotation = Quaternion.identity;
+            currentWeaponObject.transform.localScale = prefab.transform.localScale;
         }
 
-        
 
-     
+
+
 
         Debug.Log("像" + statueID + " に " + weapon + " を持たせた");
 
