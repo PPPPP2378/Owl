@@ -1,6 +1,7 @@
 //PaintingDoor_n.cs
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 
 public class PaintingDoor_n : MonoBehaviour
@@ -13,6 +14,14 @@ public class PaintingDoor_n : MonoBehaviour
     public string nextSceneName;
 
     bool canMove = false;
+
+    [Header("扉のタイル変更")]
+    public Tilemap doorTilemap;
+    public Vector3Int doorTilePosition;
+    public TileBase openDoorTile;
+
+    [Header("開いた後に有効化するオブジェクト")]
+    public GameObject doorTriggerObject;
 
     void Awake()
     {
@@ -51,7 +60,31 @@ public class PaintingDoor_n : MonoBehaviour
 
     public void OpenDoor()
     {
+        if (isSolved)
+        {
+            return;
+        }
+
         isSolved = true;
+
+        if (doorTilemap != null && openDoorTile != null)
+        {
+            doorTilemap.SetTile(
+                doorTilePosition,
+                openDoorTile
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "PaintingDoor_nの扉TilemapまたはOpenDoorTileが未設定です"
+            );
+        }
+
+        if (doorTriggerObject != null)
+        {
+            doorTriggerObject.SetActive(true);
+        }
 
         MessageManager_n.instance.ShowMessage(
             "鍵が外れる音がした。"

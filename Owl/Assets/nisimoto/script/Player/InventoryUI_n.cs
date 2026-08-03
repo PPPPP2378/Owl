@@ -1,223 +1,353 @@
-//InventoryUI_n.cs
+// InventoryUI_n.cs
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class InventoryUI_n : MonoBehaviour
 {
+    public static InventoryUI_n Instance;
+
+    [Header("インベントリ")]
     public GameObject inventoryPanel;
     public TextMeshProUGUI[] itemTexts;
 
+    [Header("アイテム詳細")]
     public GameObject itemInfoPanel;
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI itemDescriptionText;
-    private bool ignoreNextE = false;
-    private List<ItemData_n> displayItems = new List<ItemData_n>();
 
-    private bool isOpen = false;
-    private bool isViewingInfo = false;
-    private Statue_n currentStatue = null;
-    public static InventoryUI_n Instance;
+    public int LastInventoryActionFrame { get; private set; } = -1;
+
+    private readonly List<ItemData_n> displayItems =
+        new List<ItemData_n>();
+
+    private bool isOpen;
+    private bool isViewingInfo;
+
+    private int selectID;
+    private int openedFrame = -1;
+
+    private Statue_n currentStatue;
+
     public bool IsOpen => isOpen;
 
-    void Awake()
+    private void Awake()
     {
         Instance = this;
-        Debug.Log("InventoryUI Awake : " + gameObject.scene.name + " / " + gameObject.name);
-
-        Invoke(nameof(CheckState), 0.5f);
+        Debug.Log("新しいInventoryUIコードが動いています");
     }
 
-    void CheckState()
+    private void Start()
     {
-        Debug.Log(
-            "activeSelf=" + gameObject.activeSelf +
-            " activeInHierarchy=" + gameObject.activeInHierarchy +
-            " enabled=" + enabled
-        );
-    }
-    private int selectID = 0;
+        isOpen = false;
+        isViewingInfo = false;
 
+        if (inventoryPanel != null)
+        {
+            inventoryPanel.SetActive(false);
+        }
 
-
-
-    void Start()
-    {
-        Debug.Log("Start実行");
-        inventoryPanel.SetActive(false);
         if (itemInfoPanel != null)
         {
             itemInfoPanel.SetActive(false);
         }
-        // 動作確認用（後で消す）
-        /*InventoryManager_n.Instance.AddItem(
-            "古い鍵",
-            "錆びついた古い鍵。", ItemType.Key,
-            null
-        );*/
-    }
-    public void OpenForStatue(Statue_n statue)
-    {
-        currentStatue = statue;
-        isOpen = true;
-        inventoryPanel.SetActive(true);
-        selectID = 0;
-
-        UpdateInventory();
-
-        ignoreNextE = false;
     }
 
-       
-    void Update()
+    private void Update()
     {
-        Debug.Log("Update実行");
-        Debug.Log("Update: isOpen = " + isOpen);
-        // TABで開閉
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Keyboard.current == null)
         {
-            Debug.Log("Tab押された");
-
-            if (isViewingInfo)
-            {
-                Debug.Log("詳細表示中");
-                return;
-            }
-
-            isOpen = !isOpen;
-            Debug.Log("isOpen = " + isOpen);
-
-            inventoryPanel.SetActive(isOpen);
-            Debug.Log("SetActive完了");
-
-            if (isOpen)
-            {
-                selectID = 0;
-                UpdateInventory();
-                Debug.Log("UpdateInventory完了");
-            }
+            return;
         }
+
+        HandleTabInput();
 
         if (!isOpen)
         {
-            Debug.Log("isOpenがfalseなので終了");
             return;
         }
 
-        // インベントリが開いている時だけEを受け付ける
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (ignoreNextE)
-            {
-                ignoreNextE = false;
-                return;
-            }
-
-            UseSelectedItem();
-        }
-
-        if (InventoryManager_n.Instance.itemList.Count == 0)
-            return;
-
-        // 詳細表示中
+        // 詳細画面を開いている間
         if (isViewingInfo)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) ||
-                Input.GetKeyDown(KeyCode.Q))
-            {
-                itemInfoPanel.SetActive(false);
-                isViewingInfo = false;
-            }
-
+            HandleItemInfoInput();
             return;
         }
 
-        // カーソル移動
-        if (Input.GetKeyDown(KeyCode.W))
+        UpdateDisplayItems();
+
+        if (displayItems.Count == 0)
+        {
+            return;
+        }
+
+        HandleCursorInput();
+        HandleDecisionInput();
+        HandleInfoInput();
+    }
+
+    // ========================================
+    // 通常のインベントリ開閉
+    // ========================================
+
+    private void HandleTabInput()
+    {
+        if (!Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            return;
+        }
+
+        if (isViewingInfo)
+        {
+            return;
+        }
+
+        if (isOpen)
+        {
+            CloseInventory();
+        }
+        else
+        {
+            OpenNormalInventory();
+        }
+    }
+
+    private void OpenNormalInventory()
+    {
+        // 通常のTab表示なので、石像選択状態を解除
+        currentStatue = null;
+
+        isOpen = true;
+        selectID = 0;
+
+        inventoryPanel.SetActive(true);
+        UpdateInventory();
+    }
+
+    private void CloseInventory()
+    {
+        isOpen = false;
+        isViewingInfo = false;
+        currentStatue = null;
+
+        inventoryPanel.SetActive(false);
+
+        if (itemInfoPanel != null)
+        {
+            itemInfoPanel.SetActive(false);
+        }
+    }
+
+    // ========================================
+    // 石像からインベントリを開く
+    // ========================================
+
+    public void OpenForStatue(Statue_n statue)
+    {
+        if (statue == null)
+        {
+            Debug.LogError("OpenForStatueにnullが渡されました");
+            return;
+        }
+
+        // すでに武器を置いている場合は取り外す
+        if (statue.currentItem != null)
+        {
+            statue.currentItem.isPlaced = false;
+            statue.currentItem = null;
+
+            statue.SetWeapon(WeaponType_n.None);
+
+            if (statue.puzzle != null)
+            {
+                statue.puzzle.CheckAnswer();
+            }
+        }
+
+        currentStatue = statue;
+        isOpen = true;
+        isViewingInfo = false;
+        selectID = 0;
+
+        inventoryPanel.SetActive(true);
+
+        if (itemInfoPanel != null)
+        {
+            itemInfoPanel.SetActive(false);
+        }
+
+        UpdateInventory();
+
+        // 石像を調べたE入力が、
+        // アイテム決定にも使われるのを防ぐ
+        openedFrame = Time.frameCount;
+    }
+
+    // ========================================
+    // 入力
+    // ========================================
+
+    private void HandleCursorInput()
+    {
+        if (Keyboard.current.wKey.wasPressedThisFrame)
         {
             selectID--;
 
             if (selectID < 0)
-                selectID = InventoryManager_n.Instance.itemList.Count - 1;
+            {
+                selectID = displayItems.Count - 1;
+            }
 
             UpdateInventory();
         }
-
-        if (Input.GetKeyDown(KeyCode.S))
+        else if (Keyboard.current.sKey.wasPressedThisFrame)
         {
             selectID++;
 
-            if (selectID >= InventoryManager_n.Instance.itemList.Count)
+            if (selectID >= displayItems.Count)
+            {
                 selectID = 0;
+            }
 
             UpdateInventory();
         }
+    }
 
-        // Q 詳細
-        if (Input.GetKeyDown(KeyCode.Q))
+    private void HandleDecisionInput()
+    {
+        if (!Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            return;
+        }
+
+        // インベントリを開いたフレームのEは無視
+        if (Time.frameCount == openedFrame)
+        {
+            return;
+        }
+
+        UseSelectedItem();
+    }
+
+    private void HandleInfoInput()
+    {
+        if (Keyboard.current.qKey.wasPressedThisFrame)
         {
             ShowItemInfo();
         }
     }
 
-    void UpdateInventory()
+    private void HandleItemInfoInput()
+    {
+        bool closePressed =
+            Keyboard.current.escapeKey.wasPressedThisFrame ||
+            Keyboard.current.qKey.wasPressedThisFrame ||
+            Keyboard.current.eKey.wasPressedThisFrame;
+
+        if (!closePressed)
+        {
+            return;
+        }
+
+        itemInfoPanel.SetActive(false);
+        isViewingInfo = false;
+    }
+
+    // ========================================
+    // インベントリ表示
+    // ========================================
+
+    private void UpdateDisplayItems()
     {
         displayItems.Clear();
 
-        for (int i = 0; i < itemTexts.Length; i++)
+        if (InventoryManager_n.Instance == null)
         {
-            itemTexts[i].gameObject.SetActive(false);
+            return;
         }
 
         foreach (ItemData_n item in InventoryManager_n.Instance.itemList)
         {
-            if (!item.isPlaced)
+            // 設置済みアイテムは表示しない
+            if (item.isPlaced)
             {
-                displayItems.Add(item);
+                continue;
             }
+
+            // 石像を調べているときは武器だけ表示
+            if (currentStatue != null &&
+                item.itemType != ItemType.Weapon)
+            {
+                continue;
+            }
+
+            displayItems.Add(item);
         }
 
-        if (selectID >= displayItems.Count)
+        if (displayItems.Count == 0)
         {
-            selectID = Mathf.Max(0, displayItems.Count - 1);
+            selectID = 0;
+        }
+        else
+        {
+            selectID = Mathf.Clamp(
+                selectID,
+                0,
+                displayItems.Count - 1
+            );
+        }
+    }
+
+    private void UpdateInventory()
+    {
+        UpdateDisplayItems();
+
+        foreach (TextMeshProUGUI itemText in itemTexts)
+        {
+            itemText.text = "";
+            itemText.gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < displayItems.Count && i < itemTexts.Length; i++)
+        int displayCount =
+            Mathf.Min(displayItems.Count, itemTexts.Length);
+
+        for (int i = 0; i < displayCount; i++)
         {
             itemTexts[i].gameObject.SetActive(true);
 
-            if (i == selectID)
-                itemTexts[i].text = "> " + displayItems[i].itemName;
-            else
-                itemTexts[i].text = "  " + displayItems[i].itemName;
-        }
+            string cursor = i == selectID ? "> " : "  ";
 
-        foreach (ItemData_n item in InventoryManager_n.Instance.itemList)
-        {
-            Debug.Log(item.itemName + " / isPlaced = " + item.isPlaced);
+            itemTexts[i].text =
+                cursor + displayItems[i].itemName;
         }
     }
 
     public void RefreshInventory()
     {
-        UpdateInventory();
+        if (isOpen)
+        {
+            UpdateInventory();
+        }
     }
 
-    void ShowItemInfo()
+    // ========================================
+    // 詳細表示
+    // ========================================
+
+    private void ShowItemInfo()
     {
-        if (itemInfoPanel == null) return;
-
-        List<ItemData_n> displayItems = new List<ItemData_n>();
-
-        foreach (ItemData_n data in InventoryManager_n.Instance.itemList)
+        if (itemInfoPanel == null ||
+            displayItems.Count == 0)
         {
-            if (!data.isPlaced)
-                displayItems.Add(data);
+            return;
         }
 
-        if (selectID < 0 || selectID >= displayItems.Count)
+        if (selectID < 0 ||
+            selectID >= displayItems.Count)
+        {
             return;
+        }
 
         ItemData_n item = displayItems[selectID];
 
@@ -228,83 +358,58 @@ public class InventoryUI_n : MonoBehaviour
         isViewingInfo = true;
     }
 
-    void UseSelectedItem()
-    {
-        Debug.Log("UseSelectedItem 呼び出し");
-        Debug.Log("currentStatue = " + currentStatue);
+    // ========================================
+    // アイテム決定
+    // ========================================
 
-        if (InventoryManager_n.Instance.itemList.Count == 0)
+    private void UseSelectedItem()
+    {
+        UpdateDisplayItems();
+
+        if (displayItems.Count == 0)
         {
-            Debug.Log("アイテムがありません");
             return;
         }
 
         if (selectID < 0 ||
-            selectID >= InventoryManager_n.Instance.itemList.Count)
+            selectID >= displayItems.Count)
         {
-            Debug.Log("selectIDが範囲外");
-            return;
-        }
-
-        if (selectID < 0 || selectID >= displayItems.Count)
-        {
-            Debug.Log("selectIDが範囲外");
             return;
         }
 
         ItemData_n item = displayItems[selectID];
 
-        for (int i = 0; i < InventoryManager_n.Instance.itemList.Count; i++)
-        {
-            Debug.Log(i + " : "
-                + InventoryManager_n.Instance.itemList[i].itemName
-                + " / "
-                + InventoryManager_n.Instance.itemList[i].weaponType);
-        }
-
-        Debug.Log("選択中：" + item.itemName);
-        Debug.Log("武器：" + item.weaponType);
-
-        Debug.Log("selectID = " + selectID);
-        Debug.Log("item = " + item.itemName);
-        Debug.Log("weaponType = " + item.weaponType);
-
-        // ===== 像に武具を持たせる =====
+        // 石像へ武器を置く
         if (currentStatue != null)
         {
-            Debug.Log("currentStatueあり");
-
             if (item.itemType != ItemType.Weapon)
             {
-                Debug.Log("武器ではない");
+                Debug.Log("武器アイテムを選んでください");
                 return;
             }
 
-            Debug.Log("SetWeaponを呼ぶ直前");
-
-           
-
             currentStatue.currentItem = item;
             item.isPlaced = true;
+
             currentStatue.SetWeapon(item.weaponType);
 
             if (currentStatue.puzzle != null &&
-    currentStatue.puzzle.IsAllPlaced())
+                currentStatue.puzzle.IsAllPlaced())
             {
                 currentStatue.puzzle.CheckAnswer();
             }
 
-            Debug.Log("SetWeaponを呼んだ直後");
-
-            UpdateInventory();
-
             currentStatue = null;
             isOpen = false;
             inventoryPanel.SetActive(false);
+
+            // 武器設置に使ったEを、プレイヤーの調べる処理に再利用させない
+            LastInventoryActionFrame = Time.frameCount;
+
             return;
         }
 
-        // ===== 通常使用 =====
+        // 通常のアイテム使用処理
         switch (item.itemName)
         {
             case "古い鍵":
@@ -317,11 +422,13 @@ public class InventoryUI_n : MonoBehaviour
                 break;
         }
 
-        Debug.Log("itemList.Count = " + InventoryManager_n.Instance.itemList.Count);
+        currentStatue = null;
+        isOpen = false;
+        inventoryPanel.SetActive(false);
 
-        foreach (ItemData_n data in InventoryManager_n.Instance.itemList)
-        {
-            Debug.Log(data.itemName + " isPlaced=" + data.isPlaced);
-        }
+        // このフレームのE入力をプレイヤー側で再利用させない
+        LastInventoryActionFrame = Time.frameCount;
+
+        return;
     }
 }

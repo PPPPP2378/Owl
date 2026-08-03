@@ -355,6 +355,13 @@ public class Owlwork_n : MonoBehaviour
             return;
         }
 
+        // インベントリで使用したEを、調べる入力として再利用しない
+        if (InventoryUI_n.Instance != null &&
+            InventoryUI_n.Instance.LastInventoryActionFrame == Time.frameCount)
+        {
+            return;
+        }
+
         // 選択肢表示中は調べられない
         if (MessageManager_n.instance != null &&
             MessageManager_n.instance.isChoiceActive)
@@ -380,6 +387,8 @@ public class Owlwork_n : MonoBehaviour
 
     private void CheckInteraction()
     {
+        Debug.Log("CheckInteraction実行");
+
         if (currentMystery == null)
         {
             Debug.Log("調べる対象がありません");
@@ -387,6 +396,7 @@ public class Owlwork_n : MonoBehaviour
         }
 
         Debug.Log("調べる対象：" + currentMystery.name);
+
 
 
         //====================
@@ -415,6 +425,29 @@ public class Owlwork_n : MonoBehaviour
             return;
         }
 
+        // ==========================
+        // Map4 壁
+        // ==========================
+        Map4Wall_n map4wall = currentMystery.GetComponent<Map4Wall_n>();
+
+        if (map4wall != null)
+        {
+            map4wall.Interact();
+            return;
+        }
+
+        //====================
+        // Map4の扉
+        //====================
+
+        Map4Door_n map4Door =
+            currentMystery.GetComponentInParent<Map4Door_n>();
+
+        if (map4Door != null)
+        {
+            map4Door.Interact();
+            return;
+        }
 
         //====================
         // アイテム
@@ -438,24 +471,22 @@ public class Owlwork_n : MonoBehaviour
         //====================
         // 石像
         //====================
+        Debug.Log("石像判定直前：" + currentMystery.name);
 
-        Statue_n statue =
-     currentMystery.GetComponent<Statue_n>();
+        Statue_n statue = currentMystery.GetComponentInParent<Statue_n>();
 
         if (statue != null)
         {
-            Debug.Log("石像を調べました");
-
-            // 既に武器を持っている石像は開かない
-            if (statue.currentItem != null)
-            {
-                Debug.Log("この石像には既に武器があります");
-                return;
-            }
+            Debug.Log("石像を調べました：" + statue.name);
+            Debug.Log("InventoryUI Instance = " + InventoryUI_n.Instance);
 
             if (InventoryUI_n.Instance != null)
             {
                 InventoryUI_n.Instance.OpenForStatue(statue);
+            }
+            else
+            {
+                Debug.LogError("InventoryUI_n.Instance が null です");
             }
 
             return;

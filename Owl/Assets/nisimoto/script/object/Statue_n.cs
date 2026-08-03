@@ -72,40 +72,73 @@ public class Statue_n : MonoBehaviour
                 prefab = bowPrefab;
                 break;
         }
-
         Debug.Log("生成するPrefab = " + (prefab != null ? prefab.name : "NULL"));
 
 
         // 武器を生成
         if (prefab != null)
         {
-            currentWeaponObject = Instantiate(
-     prefab,
-     weaponPoint.position,
-     weaponPoint.rotation,
-     weaponPoint
- );
+            // 先にワールド座標で生成
+            currentWeaponObject = Instantiate(prefab,weaponPoint.position,weaponPoint.rotation );
 
-            SpriteRenderer sr = currentWeaponObject.GetComponent<SpriteRenderer>();
+            // WeaponPointを有効化
+            weaponPoint.gameObject.SetActive(true);
+            // 見た目のワールドサイズを維持したままWeaponPointの子にする
+            currentWeaponObject.transform.SetParent(weaponPoint, true);
 
-            sr.sortingLayerName = "Default";
-            sr.sortingOrder = 100;
+            // 追加
+            currentWeaponObject.SetActive(true);
 
-            currentWeaponObject.transform.localPosition = new Vector3(0f, 0.3f, 0f);
-            currentWeaponObject.transform.localRotation = Quaternion.identity;
-            currentWeaponObject.transform.localScale = prefab.transform.localScale;
+            // 表示サイズ調整
+            currentWeaponObject.transform.localScale =
+                new Vector3(1.0f, 1.0f, 1.0f);
 
-            // ↓最後に追加
-            Debug.Log("world = " + currentWeaponObject.transform.position);
-            Debug.Log("local = " + currentWeaponObject.transform.localPosition);
-            Debug.Log("parent = " + currentWeaponObject.transform.parent.name);
-            Debug.Log("sortingLayer = " + sr.sortingLayerName);
-            Debug.Log("sortingOrder = " + sr.sortingOrder);
+            Debug.Log( "武器 activeSelf=" + currentWeaponObject.activeSelf + " / activeInHierarchy=" + currentWeaponObject.activeInHierarchy + " / parentActive=" + weaponPoint.gameObject.activeInHierarchy);
+
+            Debug.Log("生成位置 world = " + currentWeaponObject.transform.position);
+            Debug.Log("生成位置 local = " + currentWeaponObject.transform.localPosition);
+            Debug.Log("scale = " + currentWeaponObject.transform.lossyScale);
+            Debug.Log("active = " + currentWeaponObject.activeInHierarchy);
+
+            SpriteRenderer[] renderers = currentWeaponObject.GetComponentsInChildren<SpriteRenderer>(true);
+
+            Debug.Log("Renderer数 = " + renderers.Length);
+
+            foreach (SpriteRenderer renderer in renderers)
+            {
+                renderer.enabled = true;
+                renderer.sortingLayerName = "Default";
+                renderer.sortingOrder = 100;
+
+                Debug.Log(
+                    "Renderer: " + renderer.name +
+                    " / enabled=" + renderer.enabled +
+                    " / sprite=" + renderer.sprite
+                );
+            }
+
+            Item_n itemComponent =
+                currentWeaponObject.GetComponent<Item_n>();
+
+            if (itemComponent != null)
+            {
+                itemComponent.enabled = false;
+            }
+
+            Collider2D[] colliders =
+                currentWeaponObject.GetComponentsInChildren<Collider2D>(true);
+
+            foreach (Collider2D collider in colliders)
+            {
+                collider.enabled = false;
+            }
+
+            Debug.Log(
+                "武器生成完了：" + currentWeaponObject.name +
+                " / worldPos=" + currentWeaponObject.transform.position +
+                " / worldScale=" + currentWeaponObject.transform.lossyScale
+            );
         }
-
-
-
-
 
         Debug.Log("像" + statueID + " に " + weapon + " を持たせた");
 
