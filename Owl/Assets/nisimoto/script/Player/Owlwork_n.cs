@@ -440,17 +440,22 @@ public class Owlwork_n : MonoBehaviour
         //====================
 
         Statue_n statue =
-            currentMystery.GetComponent<Statue_n>();
+     currentMystery.GetComponent<Statue_n>();
 
         if (statue != null)
         {
             Debug.Log("Î‘œ‚ğ’²‚×‚Ü‚µ‚½");
 
+            // Šù‚É•Ší‚ğ‚Á‚Ä‚¢‚éÎ‘œ‚ÍŠJ‚©‚È‚¢
+            if (statue.currentItem != null)
+            {
+                Debug.Log("‚±‚ÌÎ‘œ‚É‚ÍŠù‚É•Ší‚ª‚ ‚è‚Ü‚·");
+                return;
+            }
+
             if (InventoryUI_n.Instance != null)
             {
-                InventoryUI_n.Instance.OpenForStatue(
-                    statue
-                );
+                InventoryUI_n.Instance.OpenForStatue(statue);
             }
 
             return;

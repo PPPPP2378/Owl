@@ -59,28 +59,6 @@ public class InventoryUI_n : MonoBehaviour
     }
     public void OpenForStatue(Statue_n statue)
     {
-        if (statue.currentItem != null)
-        {
-            statue.currentItem.isPlaced = false;
-
-            statue.currentItem = null;
-
-            statue.SetWeapon(WeaponType_n.None);
-
-            if (statue.puzzle != null)
-            {
-                statue.puzzle.CheckAnswer();
-            }
-
-
-            currentStatue = null;
-
-            RefreshInventory();
-
-            return;
-        }
-
-        // ===== ïêäÌÇíuÇ≠ =====
         currentStatue = statue;
         isOpen = true;
         inventoryPanel.SetActive(true);
@@ -88,8 +66,10 @@ public class InventoryUI_n : MonoBehaviour
 
         UpdateInventory();
 
-        ignoreNextE = true;
+        ignoreNextE = false;
     }
+
+       
     void Update()
     {
         Debug.Log("Updateé¿çs");
@@ -302,10 +282,7 @@ public class InventoryUI_n : MonoBehaviour
 
             Debug.Log("SetWeaponÇåƒÇ‘íºëO");
 
-            if (currentStatue.currentItem != null)
-            {
-                currentStatue.currentItem.isPlaced = false;
-            }
+           
 
             currentStatue.currentItem = item;
             item.isPlaced = true;

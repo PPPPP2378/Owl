@@ -79,35 +79,28 @@ public class Statue_n : MonoBehaviour
         // ïêäÌÇê∂ê¨
         if (prefab != null)
         {
-            Debug.Log("weaponPoint = " + weaponPoint.name);
-            Debug.Log("Prefab = " + prefab.name);
-
             currentWeaponObject = Instantiate(
-                prefab,
-                weaponPoint.position,
-                weaponPoint.rotation,
-                weaponPoint
-            );
-
-            Debug.Log("world = " + currentWeaponObject.transform.position);
-            Debug.Log("local = " + currentWeaponObject.transform.localPosition);
-            Debug.Log("parent = " + currentWeaponObject.transform.parent.name);
-
-            Debug.Log("ê∂ê¨ = " + currentWeaponObject);
+     prefab,
+     weaponPoint.position,
+     weaponPoint.rotation,
+     weaponPoint
+ );
 
             SpriteRenderer sr = currentWeaponObject.GetComponent<SpriteRenderer>();
 
             sr.sortingLayerName = "Default";
             sr.sortingOrder = 100;
 
-            Debug.Log("SpriteRenderer = " + sr);
-
-            if (sr != null)
-                Debug.Log("Sprite = " + sr.sprite);
-
-            currentWeaponObject.transform.localPosition = Vector3.zero;
+            currentWeaponObject.transform.localPosition = new Vector3(0f, 0.3f, 0f);
             currentWeaponObject.transform.localRotation = Quaternion.identity;
             currentWeaponObject.transform.localScale = prefab.transform.localScale;
+
+            // Å´ç≈å„Ç…í«â¡
+            Debug.Log("world = " + currentWeaponObject.transform.position);
+            Debug.Log("local = " + currentWeaponObject.transform.localPosition);
+            Debug.Log("parent = " + currentWeaponObject.transform.parent.name);
+            Debug.Log("sortingLayer = " + sr.sortingLayerName);
+            Debug.Log("sortingOrder = " + sr.sortingOrder);
         }
 
 
