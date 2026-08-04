@@ -10,6 +10,7 @@ public class StatuePuzzle_n : MonoBehaviour
     public GameObject doorTriggerObject;
 
     public Statue_n[] statues;
+    public AudioClip unlockSE;
 
     public WeaponType_n[] answer =
     {
@@ -52,6 +53,11 @@ public class StatuePuzzle_n : MonoBehaviour
 
     void OpenDoor()
     {
+        if (unlockSE != null)
+        {
+            FindFirstObjectByType<AudioSource>().PlayOneShot(unlockSE);
+        }
+
         doorTilemap.SetTile(doorTilePosition, openDoorTile);
 
         if (doorTriggerObject != null)

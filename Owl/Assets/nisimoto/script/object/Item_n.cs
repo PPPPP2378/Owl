@@ -11,6 +11,9 @@ public class Item_n : MonoBehaviour
     public WeaponType_n weaponType;
     public Sprite icon;
 
+    public AudioSource audioSource;
+    public AudioClip getItemSE;
+
     public void GetItem()
     {
         Debug.Log("GetItem: " + itemName + " / " + weaponType);
@@ -21,7 +24,10 @@ public class Item_n : MonoBehaviour
            icon,
            weaponType
        );
-
+        if (getItemSE != null)
+        {
+            FindFirstObjectByType<AudioSource>().PlayOneShot(getItemSE);
+        }
         Destroy(gameObject);
     }
 }

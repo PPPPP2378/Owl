@@ -10,6 +10,8 @@ public class WallSequenceDoor_n : MonoBehaviour
 
     public GameObject doorTriggerObject;
 
+    public AudioClip unlockSE;
+
     public MysteryWall_n[] walls;
 
     private int[] correctOrder = { 2, 3, 1 };
@@ -39,6 +41,11 @@ public class WallSequenceDoor_n : MonoBehaviour
 
     void OpenDoor()
     {
+        if (unlockSE != null)
+        {
+            FindFirstObjectByType<AudioSource>().PlayOneShot(unlockSE);
+        }
+
         doorTilemap.SetTile(doorTilePosition, openDoorTile);
 
         if (doorTriggerObject != null)

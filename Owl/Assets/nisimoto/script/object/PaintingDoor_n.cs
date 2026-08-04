@@ -23,6 +23,8 @@ public class PaintingDoor_n : MonoBehaviour
     [Header("開いた後に有効化するオブジェクト")]
     public GameObject doorTriggerObject;
 
+    public AudioClip unlockSE;
+
     void Awake()
     {
         Instance = this;
@@ -66,6 +68,11 @@ public class PaintingDoor_n : MonoBehaviour
         }
 
         isSolved = true;
+
+        if (unlockSE != null)
+        {
+            FindFirstObjectByType<AudioSource>().PlayOneShot(unlockSE);
+        }
 
         if (doorTilemap != null && openDoorTile != null)
         {

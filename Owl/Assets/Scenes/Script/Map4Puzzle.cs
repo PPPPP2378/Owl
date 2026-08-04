@@ -24,6 +24,9 @@ public class Map4Puzzle_n : MonoBehaviour
     [Header("開いた扉のTile")]
     public TileBase openDoorTile;
 
+    [Header("解錠SE")]
+    public AudioClip unlockSE;
+
     // 現在調べた壁
     // 0：未選択
     // 1：壁Ⅰ
@@ -193,6 +196,11 @@ public class Map4Puzzle_n : MonoBehaviour
     private void OpenDoor()
     {
         IsDoorOpen = true;
+
+        if (unlockSE != null)
+        {
+            FindFirstObjectByType<AudioSource>().PlayOneShot(unlockSE);
+        }
 
         if (doorTilemap != null)
         {

@@ -17,6 +17,9 @@ public class InventoryUI_n : MonoBehaviour
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI itemDescriptionText;
 
+    public AudioSource audioSource;
+    public AudioClip memoSE;
+
     public int LastInventoryActionFrame { get; private set; } = -1;
 
     private readonly List<ItemData_n> displayItems =
@@ -355,6 +358,7 @@ public class InventoryUI_n : MonoBehaviour
         itemDescriptionText.text = item.description;
 
         itemInfoPanel.SetActive(true);
+        audioSource.PlayOneShot(memoSE);
         isViewingInfo = true;
     }
 
